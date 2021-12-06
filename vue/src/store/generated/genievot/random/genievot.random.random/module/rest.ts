@@ -13,7 +13,10 @@ export interface ProtobufAny {
   "@type"?: string;
 }
 
-export type RandomMsgCreateRandomResponse = object;
+export interface RandomMsgCreateRandomResponse {
+  /** @format uint64 */
+  id?: string;
+}
 
 export interface RpcStatus {
   /** @format int32 */

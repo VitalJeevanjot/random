@@ -19652,6 +19652,10 @@ definitions:
       response type.
   genievot.random.random.MsgCreateRandomResponse:
     type: object
+    properties:
+      id:
+        type: string
+        format: uint64
   ibc.applications.transfer.v1.DenomTrace:
     type: object
     properties:

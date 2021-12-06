@@ -2,9 +2,11 @@ import { Reader, Writer } from "protobufjs/minimal";
 export declare const protobufPackage = "genievot.random.random";
 export interface MsgCreateRandom {
     creator: string;
+    /** int32 count = 3; // -1 will be last (recently created) and 0 is first */
     outputCap: string;
 }
 export interface MsgCreateRandomResponse {
+    id: number;
 }
 export declare const MsgCreateRandom: {
     encode(message: MsgCreateRandom, writer?: Writer): Writer;
@@ -14,11 +16,11 @@ export declare const MsgCreateRandom: {
     fromPartial(object: DeepPartial<MsgCreateRandom>): MsgCreateRandom;
 };
 export declare const MsgCreateRandomResponse: {
-    encode(_: MsgCreateRandomResponse, writer?: Writer): Writer;
+    encode(message: MsgCreateRandomResponse, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateRandomResponse;
-    fromJSON(_: any): MsgCreateRandomResponse;
-    toJSON(_: MsgCreateRandomResponse): unknown;
-    fromPartial(_: DeepPartial<MsgCreateRandomResponse>): MsgCreateRandomResponse;
+    fromJSON(object: any): MsgCreateRandomResponse;
+    toJSON(message: MsgCreateRandomResponse): unknown;
+    fromPartial(object: DeepPartial<MsgCreateRandomResponse>): MsgCreateRandomResponse;
 };
 /** Msg defines the Msg service. */
 export interface Msg {

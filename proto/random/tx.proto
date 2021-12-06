@@ -14,9 +14,11 @@ service Msg {
 message MsgCreateRandom {
   string creator = 1;
   string outputCap = 2;
+  // int32 count = 3; // -1 will be last (recently created) and 0 is first
 }
 
 message MsgCreateRandomResponse {
+  uint64 id = 1;
 }
 
 // this line is used by starport scaffolding # proto/tx/message
