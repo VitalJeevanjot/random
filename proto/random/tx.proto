@@ -1,0 +1,22 @@
+syntax = "proto3";
+package genievot.random.random;
+
+// this line is used by starport scaffolding # proto/tx/import
+
+option go_package = "github.com/genievot/random/x/random/types";
+
+// Msg defines the Msg service.
+service Msg {
+      rpc CreateRandom(MsgCreateRandom) returns (MsgCreateRandomResponse);
+// this line is used by starport scaffolding # proto/tx/rpc
+}
+
+message MsgCreateRandom {
+  string creator = 1;
+  string outputCap = 2;
+}
+
+message MsgCreateRandomResponse {
+}
+
+// this line is used by starport scaffolding # proto/tx/message

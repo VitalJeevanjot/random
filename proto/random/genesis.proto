@@ -1,0 +1,11 @@
+syntax = "proto3";
+package genievot.random.random;
+
+// this line is used by starport scaffolding # genesis/proto/import
+
+option go_package = "github.com/genievot/random/x/random/types";
+
+// GenesisState defines the random module's genesis state.
+message GenesisState {
+    // this line is used by starport scaffolding # genesis/proto/state
+}
