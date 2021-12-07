@@ -51,7 +51,7 @@ func (k Keeper) CreateRandomNumber(ctx sdk.Context, msg *types.MsgCreateRandom) 
 		Parsedvrv: binary.BigEndian.Uint64(vrv),
 		Floatvrv:  float_vrv,
 		Finalvrv:  uint64(final_vrv),
-		Finalvrvfl: final_vrv_float
+		Finalvrvfl: final_vrv_float,
 	}
 
 	newUserVal := types.Userval{
