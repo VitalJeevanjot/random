@@ -13,7 +13,7 @@ func (k Keeper) CreateRandomNumber(ctx sdk.Context, msg *types.MsgCreateRandom) 
 
 	userval, isFound := k.GetUserval(ctx, msg.Creator)
 	
-	var user_key_count int64 = 0
+	var user_key_count int64 = 1
 	if isFound {
 		user_key_count = userval.Count+1
 	}
