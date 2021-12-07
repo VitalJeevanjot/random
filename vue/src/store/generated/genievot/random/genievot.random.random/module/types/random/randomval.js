@@ -13,6 +13,7 @@ const baseRandomval = {
     parsedvrv: 0,
     floatvrv: 0,
     finalvrv: 0,
+    finalvrvfl: 0,
 };
 export const Randomval = {
     encode(message, writer = Writer.create()) {
@@ -45,6 +46,9 @@ export const Randomval = {
         }
         if (message.finalvrv !== 0) {
             writer.uint32(80).uint64(message.finalvrv);
+        }
+        if (message.finalvrvfl !== 0) {
+            writer.uint32(89).double(message.finalvrvfl);
         }
         return writer;
     },
@@ -84,6 +88,9 @@ export const Randomval = {
                     break;
                 case 10:
                     message.finalvrv = longToNumber(reader.uint64());
+                    break;
+                case 11:
+                    message.finalvrvfl = reader.double();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -154,6 +161,12 @@ export const Randomval = {
         else {
             message.finalvrv = 0;
         }
+        if (object.finalvrvfl !== undefined && object.finalvrvfl !== null) {
+            message.finalvrvfl = Number(object.finalvrvfl);
+        }
+        else {
+            message.finalvrvfl = 0;
+        }
         return message;
     },
     toJSON(message) {
@@ -168,6 +181,7 @@ export const Randomval = {
         message.parsedvrv !== undefined && (obj.parsedvrv = message.parsedvrv);
         message.floatvrv !== undefined && (obj.floatvrv = message.floatvrv);
         message.finalvrv !== undefined && (obj.finalvrv = message.finalvrv);
+        message.finalvrvfl !== undefined && (obj.finalvrvfl = message.finalvrvfl);
         return obj;
     },
     fromPartial(object) {
@@ -231,6 +245,12 @@ export const Randomval = {
         }
         else {
             message.finalvrv = 0;
+        }
+        if (object.finalvrvfl !== undefined && object.finalvrvfl !== null) {
+            message.finalvrvfl = object.finalvrvfl;
+        }
+        else {
+            message.finalvrvfl = 0;
         }
         return message;
     },

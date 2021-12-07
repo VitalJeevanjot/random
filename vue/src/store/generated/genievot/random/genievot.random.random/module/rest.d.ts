@@ -55,6 +55,8 @@ export interface RandomRandomval {
     floatvrv?: number;
     /** @format uint64 */
     finalvrv?: string;
+    /** @format double */
+    finalvrvfl?: number;
 }
 export interface RandomUserval {
     index?: string;

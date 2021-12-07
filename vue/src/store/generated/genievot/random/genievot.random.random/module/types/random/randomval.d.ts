@@ -10,9 +10,12 @@ export interface Randomval {
     message: string;
     /** bytes to int converted */
     parsedvrv: number;
+    /** floatvrv = full vrv / max uint64 to get number in between or equal to 0 and 1 */
     floatvrv: number;
-    /** int reduced to fit the cap */
+    /** int vrv = floatvrv * multiplier */
     finalvrv: number;
+    /** float vrv = floatvrv * multiplier casted to int */
+    finalvrvfl: number;
 }
 export declare const Randomval: {
     encode(message: Randomval, writer?: Writer): Writer;

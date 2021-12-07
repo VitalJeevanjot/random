@@ -79,6 +79,9 @@ export interface RandomRandomval {
 
   /** @format uint64 */
   finalvrv?: string;
+
+  /** @format double */
+  finalvrvfl?: number;
 }
 
 export interface RandomUserval {

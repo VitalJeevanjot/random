@@ -14,7 +14,8 @@ message Randomval {
   string pubk = 6; 
   string message = 7; 
   uint64 parsedvrv = 8; // bytes to int converted
-  double floatvrv = 9;
-  uint64 finalvrv = 10; // int reduced to fit the cap
+  double floatvrv = 9; // floatvrv = full vrv / max uint64 to get number in between or equal to 0 and 1
+  uint64 finalvrv = 10; // int vrv = floatvrv * multiplier
+  double finalvrvfl = 11; // float vrv = floatvrv * multiplier casted to int
 }
 

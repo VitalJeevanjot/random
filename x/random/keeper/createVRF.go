@@ -34,6 +34,12 @@ func (k Keeper) CreateRandomNumber(ctx sdk.Context, msg *types.MsgCreateRandom) 
 		return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Public Key is not generated")
 	}
 
+	var max_val_uint64 uint64 = 18446744073709551615
+	parse_vrv_to_uint64 := binary.BigEndian.Uint64(vrv)
+	var float_vrv float64 = float64(parse_vrv_to_uint64) / float64(max_val_uint64)
+	final_vrv := float_vrv * float64(msg.Multiplier)
+	final_vrv_float := float_vrv * float64(msg.Multiplier)
+
 	newRandomVal := types.Randomval{
 		Index:     random_val_key,
 		Creator:   msg.Creator,
@@ -43,7 +49,9 @@ func (k Keeper) CreateRandomNumber(ctx sdk.Context, msg *types.MsgCreateRandom) 
 		Pubk:      hex.EncodeToString(pub_key),
 		Message:   random_val_key,
 		Parsedvrv: binary.BigEndian.Uint64(vrv),
-		Finalvrv:  56,
+		Floatvrv:  float_vrv,
+		Finalvrv:  uint64(final_vrv),
+		Finalvrvfl: final_vrv_float
 	}
 
 	newUserVal := types.Userval{

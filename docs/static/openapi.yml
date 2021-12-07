@@ -11808,6 +11808,9 @@ paths:
                     finalvrv:
                       type: string
                       format: uint64
+                    finalvrvfl:
+                      type: number
+                      format: double
               pagination:
                 type: object
                 properties:
@@ -11946,6 +11949,9 @@ paths:
                   finalvrv:
                     type: string
                     format: uint64
+                  finalvrvfl:
+                    type: number
+                    format: double
         default:
           description: An unexpected error response.
           schema:
@@ -20107,6 +20113,9 @@ definitions:
             finalvrv:
               type: string
               format: uint64
+            finalvrvfl:
+              type: number
+              format: double
       pagination:
         type: object
         properties:
@@ -20202,6 +20211,9 @@ definitions:
           finalvrv:
             type: string
             format: uint64
+          finalvrvfl:
+            type: number
+            format: double
   genievot.random.random.QueryGetUservalResponse:
     type: object
     properties:
@@ -20247,6 +20259,9 @@ definitions:
       finalvrv:
         type: string
         format: uint64
+      finalvrvfl:
+        type: number
+        format: double
   genievot.random.random.Userval:
     type: object
     properties:
