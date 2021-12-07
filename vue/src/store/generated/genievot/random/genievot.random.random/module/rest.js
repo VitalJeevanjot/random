@@ -134,4 +134,36 @@ export class HttpClient {
  * @version version not set
  */
 export class Api extends HttpClient {
+    constructor() {
+        super(...arguments);
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryRandomvalAll
+         * @summary Queries a list of randomval items.
+         * @request GET:/genievot/random/random/randomval
+         */
+        this.queryRandomvalAll = (query, params = {}) => this.request({
+            path: `/genievot/random/random/randomval`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryRandomval
+         * @summary Queries a randomval by index.
+         * @request GET:/genievot/random/random/randomval/{index}
+         */
+        this.queryRandomval = (index, params = {}) => this.request({
+            path: `/genievot/random/random/randomval/${index}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+    }
 }

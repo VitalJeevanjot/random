@@ -1,14 +1,14 @@
 package keeper
 
 import (
+	"encoding/hex"
 	"fmt"
+	"github.com/coniks-sys/coniks-go/crypto/vrf"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/genievot/random/x/random/types"
-	"github.com/coniks-sys/coniks-go/crypto/vrf"
-	"encoding/hex"
 )
 
-func(k Keeper) CreateRandomNumber(ctx sdk.Context, msg *types.MsgCreateRandom) uint64 {
+func (k Keeper) CreateRandomNumber(ctx sdk.Context, msg *types.MsgCreateRandom) uint64 {
 	fmt.Println(msg.Creator)
 	fmt.Println(msg.OutputCap)
 

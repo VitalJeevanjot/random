@@ -1,6 +1,8 @@
 import { txClient, queryClient, MissingWalletError } from './module';
 // @ts-ignore
 import { SpVuexError } from '@starport/vuex';
+import { Randomval } from "./module/types/random/randomval";
+export { Randomval };
 async function initTxClient(vuexGetters) {
     return await txClient(vuexGetters['common/wallet/signer'], {
         addr: vuexGetters['common/env/apiTendermint']
@@ -34,7 +36,11 @@ function getStructure(template) {
 }
 const getDefaultState = () => {
     return {
-        _Structure: {},
+        Randomval: {},
+        RandomvalAll: {},
+        _Structure: {
+            Randomval: getStructure(Randomval.fromPartial({})),
+        },
         _Subscriptions: new Set(),
     };
 };
@@ -58,6 +64,18 @@ export default {
         }
     },
     getters: {
+        getRandomval: (state) => (params = { params: {} }) => {
+            if (!params.query) {
+                params.query = null;
+            }
+            return state.Randomval[JSON.stringify(params)] ?? {};
+        },
+        getRandomvalAll: (state) => (params = { params: {} }) => {
+            if (!params.query) {
+                params.query = null;
+            }
+            return state.RandomvalAll[JSON.stringify(params)] ?? {};
+        },
         getTypeStructure: (state) => (type) => {
             return state._Structure[type].fields;
         }
@@ -86,6 +104,36 @@ export default {
                     throw new SpVuexError('Subscriptions: ' + e.message);
                 }
             });
+        },
+        async QueryRandomval({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params: { ...key }, query = null }) {
+            try {
+                const queryClient = await initQueryClient(rootGetters);
+                let value = (await queryClient.queryRandomval(key.index)).data;
+                commit('QUERY', { query: 'Randomval', key: { params: { ...key }, query }, value });
+                if (subscribe)
+                    commit('SUBSCRIBE', { action: 'QueryRandomval', payload: { options: { all }, params: { ...key }, query } });
+                return getters['getRandomval']({ params: { ...key }, query }) ?? {};
+            }
+            catch (e) {
+                throw new SpVuexError('QueryClient:QueryRandomval', 'API Node Unavailable. Could not perform query: ' + e.message);
+            }
+        },
+        async QueryRandomvalAll({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params: { ...key }, query = null }) {
+            try {
+                const queryClient = await initQueryClient(rootGetters);
+                let value = (await queryClient.queryRandomvalAll(query)).data;
+                while (all && value.pagination && value.pagination.nextKey != null) {
+                    let next_values = (await queryClient.queryRandomvalAll({ ...query, 'pagination.key': value.pagination.nextKey })).data;
+                    value = mergeResults(value, next_values);
+                }
+                commit('QUERY', { query: 'RandomvalAll', key: { params: { ...key }, query }, value });
+                if (subscribe)
+                    commit('SUBSCRIBE', { action: 'QueryRandomvalAll', payload: { options: { all }, params: { ...key }, query } });
+                return getters['getRandomvalAll']({ params: { ...key }, query }) ?? {};
+            }
+            catch (e) {
+                throw new SpVuexError('QueryClient:QueryRandomvalAll', 'API Node Unavailable. Could not perform query: ' + e.message);
+            }
         },
         async sendMsgCreateRandom({ rootGetters }, { value, fee = [], memo = '' }) {
             try {

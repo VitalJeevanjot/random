@@ -1,0 +1,17 @@
+syntax = "proto3";
+package genievot.random.random;
+
+option go_package = "github.com/genievot/random/x/random/types";
+
+
+
+message Randomval {
+  string index = 1; 
+  string vrv = 2; 
+  string outcap = 3; 
+  string proof = 4; 
+  string ubk = 5; 
+  string message = 6; 
+  
+}
+

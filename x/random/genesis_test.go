@@ -11,6 +11,14 @@ import (
 
 func TestGenesis(t *testing.T) {
 	genesisState := types.GenesisState{
+		RandomvalList: []types.Randomval{
+			{
+				Index: "0",
+			},
+			{
+				Index: "1",
+			},
+		},
 		// this line is used by starport scaffolding # genesis/test/state
 	}
 
@@ -19,5 +27,7 @@ func TestGenesis(t *testing.T) {
 	got := random.ExportGenesis(ctx, *k)
 	require.NotNil(t, got)
 
+	require.Len(t, got.RandomvalList, len(genesisState.RandomvalList))
+	require.Subset(t, genesisState.RandomvalList, got.RandomvalList)
 	// this line is used by starport scaffolding # genesis/test/assert
 }
