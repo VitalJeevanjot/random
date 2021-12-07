@@ -16,8 +16,10 @@ func (k Keeper) VerifyValues(goCtx context.Context, req *types.QueryVerifyValues
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	is_verified, err := k.VerifyRandomNumber(ctx, req)
+
 	// TODO: Process the query
 	_ = ctx
 
-	return &types.QueryVerifyValuesResponse{}, nil
+	return &types.QueryVerifyValuesResponse{Verified: is_verified}, err
 }

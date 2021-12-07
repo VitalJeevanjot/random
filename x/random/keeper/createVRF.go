@@ -64,3 +64,27 @@ func (k Keeper) CreateRandomNumber(ctx sdk.Context, msg *types.MsgCreateRandom) 
 	k.SetUserval(ctx, newUserVal)
 	return nil
 }
+
+func (k Keeper) VerifyRandomNumber(ctx sdk.Context, req *types.QueryVerifyValuesRequest) (string, error) {
+
+	var public_key vrf.PublicKey
+	public_key, err := hex.DecodeString(req.Pubkey)
+	if err != nil {
+		return "false", sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Public Key cannot be decoded")
+	}
+	message_value := []byte(req.Message)
+	vrv_value, err := hex.DecodeString(req.Vrv)
+	if err != nil {
+		return "false", sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "VRV Value cannot be decoded")
+	}
+
+	proof_value, err := hex.DecodeString(req.Proof)
+	if err != nil {
+		return "false", sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Proof value cannot be decoded")
+	}
+
+	is_verified := public_key.Verify(message_value, vrv_value, proof_value)
+
+	return strconv.FormatBool(is_verified), err
+
+}
