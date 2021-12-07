@@ -7,10 +7,10 @@ import (
 
 var _ sdk.Msg = &MsgCreateRandom{}
 
-func NewMsgCreateRandom(creator string, outputCap string) *MsgCreateRandom {
+func NewMsgCreateRandom(creator string, multiplier uint64) *MsgCreateRandom {
 	return &MsgCreateRandom{
 		Creator:   creator,
-		OutputCap: outputCap,
+		Multiplier: multiplier,
 	}
 }
 

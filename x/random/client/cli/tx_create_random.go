@@ -15,12 +15,14 @@ var _ = strconv.Itoa(0)
 
 func CmdCreateRandom() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "create-random [output-cap]",
+		Use:   "create-random [multiplier]",
 		Short: "Broadcast message create-random",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argOutputCap := args[0]
-
+			argMultiplier, erri := strconv.ParseUint(args[0], 10, 64)
+			if erri != nil {
+				return erri
+			}
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
@@ -28,7 +30,7 @@ func CmdCreateRandom() *cobra.Command {
 
 			msg := types.NewMsgCreateRandom(
 				clientCtx.GetFromAddress().String(),
-				argOutputCap,
+				argMultiplier,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

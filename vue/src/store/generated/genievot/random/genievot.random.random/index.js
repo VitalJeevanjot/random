@@ -41,6 +41,7 @@ const getDefaultState = () => {
         RandomvalAll: {},
         Userval: {},
         UservalAll: {},
+        VerifyValues: {},
         _Structure: {
             Randomval: getStructure(Randomval.fromPartial({})),
             Userval: getStructure(Userval.fromPartial({})),
@@ -91,6 +92,12 @@ export default {
                 params.query = null;
             }
             return state.UservalAll[JSON.stringify(params)] ?? {};
+        },
+        getVerifyValues: (state) => (params = { params: {} }) => {
+            if (!params.query) {
+                params.query = null;
+            }
+            return state.VerifyValues[JSON.stringify(params)] ?? {};
         },
         getTypeStructure: (state) => (type) => {
             return state._Structure[type].fields;
@@ -179,6 +186,23 @@ export default {
             }
             catch (e) {
                 throw new SpVuexError('QueryClient:QueryUservalAll', 'API Node Unavailable. Could not perform query: ' + e.message);
+            }
+        },
+        async QueryVerifyValues({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params: { ...key }, query = null }) {
+            try {
+                const queryClient = await initQueryClient(rootGetters);
+                let value = (await queryClient.queryVerifyValues(query)).data;
+                while (all && value.pagination && value.pagination.nextKey != null) {
+                    let next_values = (await queryClient.queryVerifyValues({ ...query, 'pagination.key': value.pagination.nextKey })).data;
+                    value = mergeResults(value, next_values);
+                }
+                commit('QUERY', { query: 'VerifyValues', key: { params: { ...key }, query }, value });
+                if (subscribe)
+                    commit('SUBSCRIBE', { action: 'QueryVerifyValues', payload: { options: { all }, params: { ...key }, query } });
+                return getters['getVerifyValues']({ params: { ...key }, query }) ?? {};
+            }
+            catch (e) {
+                throw new SpVuexError('QueryClient:QueryVerifyValues', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async sendMsgCreateRandom({ rootGetters }, { value, fee = [], memo = '' }) {

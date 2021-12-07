@@ -29,6 +29,15 @@ export interface QueryAllUservalResponse {
     userval: Userval[];
     pagination: PageResponse | undefined;
 }
+export interface QueryVerifyValuesRequest {
+    pubkey: string;
+    message: string;
+    vrv: string;
+    proof: string;
+}
+export interface QueryVerifyValuesResponse {
+    verified: string;
+}
 export declare const QueryGetRandomvalRequest: {
     encode(message: QueryGetRandomvalRequest, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): QueryGetRandomvalRequest;
@@ -85,6 +94,20 @@ export declare const QueryAllUservalResponse: {
     toJSON(message: QueryAllUservalResponse): unknown;
     fromPartial(object: DeepPartial<QueryAllUservalResponse>): QueryAllUservalResponse;
 };
+export declare const QueryVerifyValuesRequest: {
+    encode(message: QueryVerifyValuesRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryVerifyValuesRequest;
+    fromJSON(object: any): QueryVerifyValuesRequest;
+    toJSON(message: QueryVerifyValuesRequest): unknown;
+    fromPartial(object: DeepPartial<QueryVerifyValuesRequest>): QueryVerifyValuesRequest;
+};
+export declare const QueryVerifyValuesResponse: {
+    encode(message: QueryVerifyValuesResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryVerifyValuesResponse;
+    fromJSON(object: any): QueryVerifyValuesResponse;
+    toJSON(message: QueryVerifyValuesResponse): unknown;
+    fromPartial(object: DeepPartial<QueryVerifyValuesResponse>): QueryVerifyValuesResponse;
+};
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Queries a randomval by index. */
@@ -95,6 +118,8 @@ export interface Query {
     Userval(request: QueryGetUservalRequest): Promise<QueryGetUservalResponse>;
     /** Queries a list of userval items. */
     UservalAll(request: QueryAllUservalRequest): Promise<QueryAllUservalResponse>;
+    /** Queries a list of verifyValues items. */
+    VerifyValues(request: QueryVerifyValuesRequest): Promise<QueryVerifyValuesResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -103,6 +128,7 @@ export declare class QueryClientImpl implements Query {
     RandomvalAll(request: QueryAllRandomvalRequest): Promise<QueryAllRandomvalResponse>;
     Userval(request: QueryGetUservalRequest): Promise<QueryGetUservalResponse>;
     UservalAll(request: QueryAllUservalRequest): Promise<QueryAllUservalResponse>;
+    VerifyValues(request: QueryVerifyValuesRequest): Promise<QueryVerifyValuesResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

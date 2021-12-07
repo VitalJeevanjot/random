@@ -11790,8 +11790,9 @@ paths:
                       type: string
                     vrv:
                       type: string
-                    outcap:
+                    multiplier:
                       type: string
+                      format: uint64
                     proof:
                       type: string
                     pubk:
@@ -11800,10 +11801,13 @@ paths:
                       type: string
                     parsedvrv:
                       type: string
-                      format: int64
+                      format: uint64
+                    floatvrv:
+                      type: number
+                      format: double
                     finalvrv:
                       type: string
-                      format: int64
+                      format: uint64
               pagination:
                 type: object
                 properties:
@@ -11924,8 +11928,9 @@ paths:
                     type: string
                   vrv:
                     type: string
-                  outcap:
+                  multiplier:
                     type: string
+                    format: uint64
                   proof:
                     type: string
                   pubk:
@@ -11934,10 +11939,13 @@ paths:
                     type: string
                   parsedvrv:
                     type: string
-                    format: int64
+                    format: uint64
+                  floatvrv:
+                    type: number
+                    format: double
                   finalvrv:
                     type: string
-                    format: int64
+                    format: uint64
         default:
           description: An unexpected error response.
           schema:
@@ -12128,6 +12136,55 @@ paths:
         - name: index
           in: path
           required: true
+          type: string
+      tags:
+        - Query
+  /genievot/random/random/verifyValues:
+    get:
+      summary: Queries a list of verifyValues items.
+      operationId: GenievotRandomRandomVerifyValues
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              verified:
+                type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: pubkey
+          in: query
+          required: false
+          type: string
+        - name: message
+          in: query
+          required: false
+          type: string
+        - name: vrv
+          in: query
+          required: false
+          type: string
+        - name: proof
+          in: query
+          required: false
           type: string
       tags:
         - Query
@@ -20032,8 +20089,9 @@ definitions:
               type: string
             vrv:
               type: string
-            outcap:
+            multiplier:
               type: string
+              format: uint64
             proof:
               type: string
             pubk:
@@ -20042,10 +20100,13 @@ definitions:
               type: string
             parsedvrv:
               type: string
-              format: int64
+              format: uint64
+            floatvrv:
+              type: number
+              format: double
             finalvrv:
               type: string
-              format: int64
+              format: uint64
       pagination:
         type: object
         properties:
@@ -20123,8 +20184,9 @@ definitions:
             type: string
           vrv:
             type: string
-          outcap:
+          multiplier:
             type: string
+            format: uint64
           proof:
             type: string
           pubk:
@@ -20133,10 +20195,13 @@ definitions:
             type: string
           parsedvrv:
             type: string
-            format: int64
+            format: uint64
+          floatvrv:
+            type: number
+            format: double
           finalvrv:
             type: string
-            format: int64
+            format: uint64
   genievot.random.random.QueryGetUservalResponse:
     type: object
     properties:
@@ -20150,6 +20215,11 @@ definitions:
           count:
             type: string
             format: int64
+  genievot.random.random.QueryVerifyValuesResponse:
+    type: object
+    properties:
+      verified:
+        type: string
   genievot.random.random.Randomval:
     type: object
     properties:
@@ -20159,8 +20229,9 @@ definitions:
         type: string
       vrv:
         type: string
-      outcap:
+      multiplier:
         type: string
+        format: uint64
       proof:
         type: string
       pubk:
@@ -20169,10 +20240,13 @@ definitions:
         type: string
       parsedvrv:
         type: string
-        format: int64
+        format: uint64
+      floatvrv:
+        type: number
+        format: double
       finalvrv:
         type: string
-        format: int64
+        format: uint64
   genievot.random.random.Userval:
     type: object
     properties:

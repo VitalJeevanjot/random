@@ -6,11 +6,12 @@ const baseRandomval = {
     index: "",
     creator: "",
     vrv: "",
-    outcap: "",
+    multiplier: 0,
     proof: "",
     pubk: "",
     message: "",
     parsedvrv: 0,
+    floatvrv: 0,
     finalvrv: 0,
 };
 export const Randomval = {
@@ -24,8 +25,8 @@ export const Randomval = {
         if (message.vrv !== "") {
             writer.uint32(26).string(message.vrv);
         }
-        if (message.outcap !== "") {
-            writer.uint32(34).string(message.outcap);
+        if (message.multiplier !== 0) {
+            writer.uint32(32).uint64(message.multiplier);
         }
         if (message.proof !== "") {
             writer.uint32(42).string(message.proof);
@@ -37,10 +38,13 @@ export const Randomval = {
             writer.uint32(58).string(message.message);
         }
         if (message.parsedvrv !== 0) {
-            writer.uint32(64).int64(message.parsedvrv);
+            writer.uint32(64).uint64(message.parsedvrv);
+        }
+        if (message.floatvrv !== 0) {
+            writer.uint32(73).double(message.floatvrv);
         }
         if (message.finalvrv !== 0) {
-            writer.uint32(72).int64(message.finalvrv);
+            writer.uint32(80).uint64(message.finalvrv);
         }
         return writer;
     },
@@ -61,7 +65,7 @@ export const Randomval = {
                     message.vrv = reader.string();
                     break;
                 case 4:
-                    message.outcap = reader.string();
+                    message.multiplier = longToNumber(reader.uint64());
                     break;
                 case 5:
                     message.proof = reader.string();
@@ -73,10 +77,13 @@ export const Randomval = {
                     message.message = reader.string();
                     break;
                 case 8:
-                    message.parsedvrv = longToNumber(reader.int64());
+                    message.parsedvrv = longToNumber(reader.uint64());
                     break;
                 case 9:
-                    message.finalvrv = longToNumber(reader.int64());
+                    message.floatvrv = reader.double();
+                    break;
+                case 10:
+                    message.finalvrv = longToNumber(reader.uint64());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -105,11 +112,11 @@ export const Randomval = {
         else {
             message.vrv = "";
         }
-        if (object.outcap !== undefined && object.outcap !== null) {
-            message.outcap = String(object.outcap);
+        if (object.multiplier !== undefined && object.multiplier !== null) {
+            message.multiplier = Number(object.multiplier);
         }
         else {
-            message.outcap = "";
+            message.multiplier = 0;
         }
         if (object.proof !== undefined && object.proof !== null) {
             message.proof = String(object.proof);
@@ -135,6 +142,12 @@ export const Randomval = {
         else {
             message.parsedvrv = 0;
         }
+        if (object.floatvrv !== undefined && object.floatvrv !== null) {
+            message.floatvrv = Number(object.floatvrv);
+        }
+        else {
+            message.floatvrv = 0;
+        }
         if (object.finalvrv !== undefined && object.finalvrv !== null) {
             message.finalvrv = Number(object.finalvrv);
         }
@@ -148,11 +161,12 @@ export const Randomval = {
         message.index !== undefined && (obj.index = message.index);
         message.creator !== undefined && (obj.creator = message.creator);
         message.vrv !== undefined && (obj.vrv = message.vrv);
-        message.outcap !== undefined && (obj.outcap = message.outcap);
+        message.multiplier !== undefined && (obj.multiplier = message.multiplier);
         message.proof !== undefined && (obj.proof = message.proof);
         message.pubk !== undefined && (obj.pubk = message.pubk);
         message.message !== undefined && (obj.message = message.message);
         message.parsedvrv !== undefined && (obj.parsedvrv = message.parsedvrv);
+        message.floatvrv !== undefined && (obj.floatvrv = message.floatvrv);
         message.finalvrv !== undefined && (obj.finalvrv = message.finalvrv);
         return obj;
     },
@@ -176,11 +190,11 @@ export const Randomval = {
         else {
             message.vrv = "";
         }
-        if (object.outcap !== undefined && object.outcap !== null) {
-            message.outcap = object.outcap;
+        if (object.multiplier !== undefined && object.multiplier !== null) {
+            message.multiplier = object.multiplier;
         }
         else {
-            message.outcap = "";
+            message.multiplier = 0;
         }
         if (object.proof !== undefined && object.proof !== null) {
             message.proof = object.proof;
@@ -205,6 +219,12 @@ export const Randomval = {
         }
         else {
             message.parsedvrv = 0;
+        }
+        if (object.floatvrv !== undefined && object.floatvrv !== null) {
+            message.floatvrv = object.floatvrv;
+        }
+        else {
+            message.floatvrv = 0;
         }
         if (object.finalvrv !== undefined && object.finalvrv !== null) {
             message.finalvrv = object.finalvrv;

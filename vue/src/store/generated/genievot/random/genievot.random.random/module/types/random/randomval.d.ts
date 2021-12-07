@@ -4,11 +4,14 @@ export interface Randomval {
     index: string;
     creator: string;
     vrv: string;
-    outcap: string;
+    multiplier: number;
     proof: string;
     pubk: string;
     message: string;
+    /** bytes to int converted */
     parsedvrv: number;
+    floatvrv: number;
+    /** int reduced to fit the cap */
     finalvrv: number;
 }
 export declare const Randomval: {

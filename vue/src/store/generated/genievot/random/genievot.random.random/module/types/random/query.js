@@ -516,6 +516,182 @@ export const QueryAllUservalResponse = {
         return message;
     },
 };
+const baseQueryVerifyValuesRequest = {
+    pubkey: "",
+    message: "",
+    vrv: "",
+    proof: "",
+};
+export const QueryVerifyValuesRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.pubkey !== "") {
+            writer.uint32(10).string(message.pubkey);
+        }
+        if (message.message !== "") {
+            writer.uint32(18).string(message.message);
+        }
+        if (message.vrv !== "") {
+            writer.uint32(26).string(message.vrv);
+        }
+        if (message.proof !== "") {
+            writer.uint32(34).string(message.proof);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryVerifyValuesRequest,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.pubkey = reader.string();
+                    break;
+                case 2:
+                    message.message = reader.string();
+                    break;
+                case 3:
+                    message.vrv = reader.string();
+                    break;
+                case 4:
+                    message.proof = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryVerifyValuesRequest,
+        };
+        if (object.pubkey !== undefined && object.pubkey !== null) {
+            message.pubkey = String(object.pubkey);
+        }
+        else {
+            message.pubkey = "";
+        }
+        if (object.message !== undefined && object.message !== null) {
+            message.message = String(object.message);
+        }
+        else {
+            message.message = "";
+        }
+        if (object.vrv !== undefined && object.vrv !== null) {
+            message.vrv = String(object.vrv);
+        }
+        else {
+            message.vrv = "";
+        }
+        if (object.proof !== undefined && object.proof !== null) {
+            message.proof = String(object.proof);
+        }
+        else {
+            message.proof = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.pubkey !== undefined && (obj.pubkey = message.pubkey);
+        message.message !== undefined && (obj.message = message.message);
+        message.vrv !== undefined && (obj.vrv = message.vrv);
+        message.proof !== undefined && (obj.proof = message.proof);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryVerifyValuesRequest,
+        };
+        if (object.pubkey !== undefined && object.pubkey !== null) {
+            message.pubkey = object.pubkey;
+        }
+        else {
+            message.pubkey = "";
+        }
+        if (object.message !== undefined && object.message !== null) {
+            message.message = object.message;
+        }
+        else {
+            message.message = "";
+        }
+        if (object.vrv !== undefined && object.vrv !== null) {
+            message.vrv = object.vrv;
+        }
+        else {
+            message.vrv = "";
+        }
+        if (object.proof !== undefined && object.proof !== null) {
+            message.proof = object.proof;
+        }
+        else {
+            message.proof = "";
+        }
+        return message;
+    },
+};
+const baseQueryVerifyValuesResponse = { verified: "" };
+export const QueryVerifyValuesResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.verified !== "") {
+            writer.uint32(10).string(message.verified);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryVerifyValuesResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.verified = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryVerifyValuesResponse,
+        };
+        if (object.verified !== undefined && object.verified !== null) {
+            message.verified = String(object.verified);
+        }
+        else {
+            message.verified = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.verified !== undefined && (obj.verified = message.verified);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryVerifyValuesResponse,
+        };
+        if (object.verified !== undefined && object.verified !== null) {
+            message.verified = object.verified;
+        }
+        else {
+            message.verified = "";
+        }
+        return message;
+    },
+};
 export class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -539,5 +715,10 @@ export class QueryClientImpl {
         const data = QueryAllUservalRequest.encode(request).finish();
         const promise = this.rpc.request("genievot.random.random.Query", "UservalAll", data);
         return promise.then((data) => QueryAllUservalResponse.decode(new Reader(data)));
+    }
+    VerifyValues(request) {
+        const data = QueryVerifyValuesRequest.encode(request).finish();
+        const promise = this.rpc.request("genievot.random.random.Query", "VerifyValues", data);
+        return promise.then((data) => QueryVerifyValuesResponse.decode(new Reader(data)));
     }
 }

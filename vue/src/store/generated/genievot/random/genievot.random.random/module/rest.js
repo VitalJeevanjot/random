@@ -194,5 +194,20 @@ export class Api extends HttpClient {
             format: "json",
             ...params,
         });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryVerifyValues
+         * @summary Queries a list of verifyValues items.
+         * @request GET:/genievot/random/random/verifyValues
+         */
+        this.queryVerifyValues = (query, params = {}) => this.request({
+            path: `/genievot/random/random/verifyValues`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
     }
 }

@@ -3,7 +3,7 @@ export declare const protobufPackage = "genievot.random.random";
 export interface MsgCreateRandom {
     creator: string;
     /** int32 count = 3; // -1 will be last (recently created) and 0 is first */
-    outputCap: string;
+    multiplier: number;
 }
 export interface MsgCreateRandomResponse {
     id: number;

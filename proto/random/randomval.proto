@@ -9,11 +9,12 @@ message Randomval {
   string index = 1; 
   string creator = 2;
   string vrv = 3; 
-  string outcap = 4; 
+  uint64 multiplier = 4; 
   string proof = 5; 
   string pubk = 6; 
   string message = 7; 
-  int64 parsedvrv = 8;
-  int64 finalvrv = 9;
+  uint64 parsedvrv = 8; // bytes to int converted
+  double floatvrv = 9;
+  uint64 finalvrv = 10; // int reduced to fit the cap
 }
 

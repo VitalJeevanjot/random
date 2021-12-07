@@ -2,14 +2,14 @@
 import { Reader, util, configure, Writer } from "protobufjs/minimal";
 import * as Long from "long";
 export const protobufPackage = "genievot.random.random";
-const baseMsgCreateRandom = { creator: "", outputCap: "" };
+const baseMsgCreateRandom = { creator: "", multiplier: 0 };
 export const MsgCreateRandom = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== "") {
             writer.uint32(10).string(message.creator);
         }
-        if (message.outputCap !== "") {
-            writer.uint32(18).string(message.outputCap);
+        if (message.multiplier !== 0) {
+            writer.uint32(16).uint64(message.multiplier);
         }
         return writer;
     },
@@ -24,7 +24,7 @@ export const MsgCreateRandom = {
                     message.creator = reader.string();
                     break;
                 case 2:
-                    message.outputCap = reader.string();
+                    message.multiplier = longToNumber(reader.uint64());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -41,18 +41,18 @@ export const MsgCreateRandom = {
         else {
             message.creator = "";
         }
-        if (object.outputCap !== undefined && object.outputCap !== null) {
-            message.outputCap = String(object.outputCap);
+        if (object.multiplier !== undefined && object.multiplier !== null) {
+            message.multiplier = Number(object.multiplier);
         }
         else {
-            message.outputCap = "";
+            message.multiplier = 0;
         }
         return message;
     },
     toJSON(message) {
         const obj = {};
         message.creator !== undefined && (obj.creator = message.creator);
-        message.outputCap !== undefined && (obj.outputCap = message.outputCap);
+        message.multiplier !== undefined && (obj.multiplier = message.multiplier);
         return obj;
     },
     fromPartial(object) {
@@ -63,11 +63,11 @@ export const MsgCreateRandom = {
         else {
             message.creator = "";
         }
-        if (object.outputCap !== undefined && object.outputCap !== null) {
-            message.outputCap = object.outputCap;
+        if (object.multiplier !== undefined && object.multiplier !== null) {
+            message.multiplier = object.multiplier;
         }
         else {
-            message.outputCap = "";
+            message.multiplier = 0;
         }
         return message;
     },

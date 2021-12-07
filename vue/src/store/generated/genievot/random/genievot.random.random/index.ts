@@ -48,6 +48,7 @@ const getDefaultState = () => {
 				RandomvalAll: {},
 				Userval: {},
 				UservalAll: {},
+				VerifyValues: {},
 				
 				_Structure: {
 						Randomval: getStructure(Randomval.fromPartial({})),
@@ -102,6 +103,12 @@ export default {
 						(<any> params).query=null
 					}
 			return state.UservalAll[JSON.stringify(params)] ?? {}
+		},
+				getVerifyValues: (state) => (params = { params: {}}) => {
+					if (!(<any> params).query) {
+						(<any> params).query=null
+					}
+			return state.VerifyValues[JSON.stringify(params)] ?? {}
 		},
 				
 		getTypeStructure: (state) => (type) => {
@@ -220,6 +227,31 @@ export default {
 				return getters['getUservalAll']( { params: {...key}, query}) ?? {}
 			} catch (e) {
 				throw new SpVuexError('QueryClient:QueryUservalAll', 'API Node Unavailable. Could not perform query: ' + e.message)
+				
+			}
+		},
+		
+		
+		
+		
+		 		
+		
+		
+		async QueryVerifyValues({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params: {...key}, query=null }) {
+			try {
+				const queryClient=await initQueryClient(rootGetters)
+				let value= (await queryClient.queryVerifyValues(query)).data
+				
+					
+				while (all && (<any> value).pagination && (<any> value).pagination.nextKey!=null) {
+					let next_values=(await queryClient.queryVerifyValues({...query, 'pagination.key':(<any> value).pagination.nextKey})).data
+					value = mergeResults(value, next_values);
+				}
+				commit('QUERY', { query: 'VerifyValues', key: { params: {...key}, query}, value })
+				if (subscribe) commit('SUBSCRIBE', { action: 'QueryVerifyValues', payload: { options: { all }, params: {...key},query }})
+				return getters['getVerifyValues']( { params: {...key}, query}) ?? {}
+			} catch (e) {
+				throw new SpVuexError('QueryClient:QueryVerifyValues', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},

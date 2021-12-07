@@ -7,22 +7,22 @@ export const protobufPackage = "genievot.random.random";
 export interface MsgCreateRandom {
   creator: string;
   /** int32 count = 3; // -1 will be last (recently created) and 0 is first */
-  outputCap: string;
+  multiplier: number;
 }
 
 export interface MsgCreateRandomResponse {
   id: number;
 }
 
-const baseMsgCreateRandom: object = { creator: "", outputCap: "" };
+const baseMsgCreateRandom: object = { creator: "", multiplier: 0 };
 
 export const MsgCreateRandom = {
   encode(message: MsgCreateRandom, writer: Writer = Writer.create()): Writer {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
     }
-    if (message.outputCap !== "") {
-      writer.uint32(18).string(message.outputCap);
+    if (message.multiplier !== 0) {
+      writer.uint32(16).uint64(message.multiplier);
     }
     return writer;
   },
@@ -38,7 +38,7 @@ export const MsgCreateRandom = {
           message.creator = reader.string();
           break;
         case 2:
-          message.outputCap = reader.string();
+          message.multiplier = longToNumber(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -55,10 +55,10 @@ export const MsgCreateRandom = {
     } else {
       message.creator = "";
     }
-    if (object.outputCap !== undefined && object.outputCap !== null) {
-      message.outputCap = String(object.outputCap);
+    if (object.multiplier !== undefined && object.multiplier !== null) {
+      message.multiplier = Number(object.multiplier);
     } else {
-      message.outputCap = "";
+      message.multiplier = 0;
     }
     return message;
   },
@@ -66,7 +66,7 @@ export const MsgCreateRandom = {
   toJSON(message: MsgCreateRandom): unknown {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
-    message.outputCap !== undefined && (obj.outputCap = message.outputCap);
+    message.multiplier !== undefined && (obj.multiplier = message.multiplier);
     return obj;
   },
 
@@ -77,10 +77,10 @@ export const MsgCreateRandom = {
     } else {
       message.creator = "";
     }
-    if (object.outputCap !== undefined && object.outputCap !== null) {
-      message.outputCap = object.outputCap;
+    if (object.multiplier !== undefined && object.multiplier !== null) {
+      message.multiplier = object.multiplier;
     } else {
-      message.outputCap = "";
+      message.multiplier = 0;
     }
     return message;
   },

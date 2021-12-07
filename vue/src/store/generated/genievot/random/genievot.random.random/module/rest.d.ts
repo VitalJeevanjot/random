@@ -37,17 +37,23 @@ export interface RandomQueryGetRandomvalResponse {
 export interface RandomQueryGetUservalResponse {
     userval?: RandomUserval;
 }
+export interface RandomQueryVerifyValuesResponse {
+    verified?: string;
+}
 export interface RandomRandomval {
     index?: string;
     creator?: string;
     vrv?: string;
-    outcap?: string;
+    /** @format uint64 */
+    multiplier?: string;
     proof?: string;
     pubk?: string;
     message?: string;
-    /** @format int64 */
+    /** @format uint64 */
     parsedvrv?: string;
-    /** @format int64 */
+    /** @format double */
+    floatvrv?: number;
+    /** @format uint64 */
     finalvrv?: string;
 }
 export interface RandomUserval {
@@ -220,5 +226,19 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/genievot/random/random/userval/{index}
      */
     queryUserval: (index: string, params?: RequestParams) => Promise<HttpResponse<RandomQueryGetUservalResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryVerifyValues
+     * @summary Queries a list of verifyValues items.
+     * @request GET:/genievot/random/random/verifyValues
+     */
+    queryVerifyValues: (query?: {
+        pubkey?: string;
+        message?: string;
+        vrv?: string;
+        proof?: string;
+    }, params?: RequestParams) => Promise<HttpResponse<RandomQueryVerifyValuesResponse, RpcStatus>>;
 }
 export {};
