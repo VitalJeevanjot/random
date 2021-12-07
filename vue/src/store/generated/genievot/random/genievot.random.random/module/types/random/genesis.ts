@@ -8,11 +8,12 @@ export const protobufPackage = "genievot.random.random";
 /** GenesisState defines the random module's genesis state. */
 export interface GenesisState {
   randomvalList: Randomval[];
-  /** this line is used by starport scaffolding # genesis/proto/state */
   uservalList: Userval[];
+  /** this line is used by starport scaffolding # genesis/proto/state */
+  portId: string;
 }
 
-const baseGenesisState: object = {};
+const baseGenesisState: object = { portId: "" };
 
 export const GenesisState = {
   encode(message: GenesisState, writer: Writer = Writer.create()): Writer {
@@ -21,6 +22,9 @@ export const GenesisState = {
     }
     for (const v of message.uservalList) {
       Userval.encode(v!, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.portId !== "") {
+      writer.uint32(26).string(message.portId);
     }
     return writer;
   },
@@ -39,6 +43,9 @@ export const GenesisState = {
           break;
         case 2:
           message.uservalList.push(Userval.decode(reader, reader.uint32()));
+          break;
+        case 3:
+          message.portId = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -62,6 +69,11 @@ export const GenesisState = {
         message.uservalList.push(Userval.fromJSON(e));
       }
     }
+    if (object.portId !== undefined && object.portId !== null) {
+      message.portId = String(object.portId);
+    } else {
+      message.portId = "";
+    }
     return message;
   },
 
@@ -81,6 +93,7 @@ export const GenesisState = {
     } else {
       obj.uservalList = [];
     }
+    message.portId !== undefined && (obj.portId = message.portId);
     return obj;
   },
 
@@ -97,6 +110,11 @@ export const GenesisState = {
       for (const e of object.uservalList) {
         message.uservalList.push(Userval.fromPartial(e));
       }
+    }
+    if (object.portId !== undefined && object.portId !== null) {
+      message.portId = object.portId;
+    } else {
+      message.portId = "";
     }
     return message;
   },

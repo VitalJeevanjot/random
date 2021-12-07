@@ -15,6 +15,17 @@ const (
 
 	// MemStoreKey defines the in-memory store key
 	MemStoreKey = "mem_random"
+
+	// Version defines the current version the IBC module supports
+	Version = "random-1"
+
+	// PortID is the default port id that module binds to
+	PortID = "random"
+)
+
+var (
+	// PortKey defines the key to store the port ID in store
+	PortKey = KeyPrefix("somemodi-port-")
 )
 
 func KeyPrefix(p string) []byte {

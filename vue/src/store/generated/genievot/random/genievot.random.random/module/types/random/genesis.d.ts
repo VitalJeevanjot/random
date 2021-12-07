@@ -5,8 +5,9 @@ export declare const protobufPackage = "genievot.random.random";
 /** GenesisState defines the random module's genesis state. */
 export interface GenesisState {
     randomvalList: Randomval[];
-    /** this line is used by starport scaffolding # genesis/proto/state */
     uservalList: Userval[];
+    /** this line is used by starport scaffolding # genesis/proto/state */
+    portId: string;
 }
 export declare const GenesisState: {
     encode(message: GenesisState, writer?: Writer): Writer;

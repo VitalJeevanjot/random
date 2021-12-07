@@ -2,11 +2,13 @@ import { txClient, queryClient, MissingWalletError } from './module'
 // @ts-ignore
 import { SpVuexError } from '@starport/vuex'
 
+import { RandomPacketData } from "./module/types/random/packet"
+import { NoData } from "./module/types/random/packet"
 import { Randomval } from "./module/types/random/randomval"
 import { Userval } from "./module/types/random/userval"
 
 
-export { Randomval, Userval };
+export { RandomPacketData, NoData, Randomval, Userval };
 
 async function initTxClient(vuexGetters) {
 	return await txClient(vuexGetters['common/wallet/signer'], {
@@ -51,6 +53,8 @@ const getDefaultState = () => {
 				VerifyValues: {},
 				
 				_Structure: {
+						RandomPacketData: getStructure(RandomPacketData.fromPartial({})),
+						NoData: getStructure(NoData.fromPartial({})),
 						Randomval: getStructure(Randomval.fromPartial({})),
 						Userval: getStructure(Userval.fromPartial({})),
 						
