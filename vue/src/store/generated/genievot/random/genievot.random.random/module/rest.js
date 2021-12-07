@@ -165,5 +165,34 @@ export class Api extends HttpClient {
             format: "json",
             ...params,
         });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryUservalAll
+         * @summary Queries a list of userval items.
+         * @request GET:/genievot/random/random/userval
+         */
+        this.queryUservalAll = (query, params = {}) => this.request({
+            path: `/genievot/random/random/userval`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryUserval
+         * @summary Queries a userval by index.
+         * @request GET:/genievot/random/random/userval/{index}
+         */
+        this.queryUserval = (index, params = {}) => this.request({
+            path: `/genievot/random/random/userval/${index}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
     }
 }

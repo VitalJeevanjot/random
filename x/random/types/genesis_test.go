@@ -29,6 +29,14 @@ func TestGenesisState_Validate(t *testing.T) {
 						Index: "1",
 					},
 				},
+				UservalList: []types.Userval{
+					{
+						Index: "0",
+					},
+					{
+						Index: "1",
+					},
+				},
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
@@ -37,6 +45,20 @@ func TestGenesisState_Validate(t *testing.T) {
 			desc: "duplicated randomval",
 			genState: &types.GenesisState{
 				RandomvalList: []types.Randomval{
+					{
+						Index: "0",
+					},
+					{
+						Index: "0",
+					},
+				},
+			},
+			valid: false,
+		},
+		{
+			desc: "duplicated userval",
+			genState: &types.GenesisState{
+				UservalList: []types.Userval{
 					{
 						Index: "0",
 					},

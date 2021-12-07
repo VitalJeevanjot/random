@@ -1,6 +1,7 @@
 import { Reader, Writer } from "protobufjs/minimal";
 import { Randomval } from "../random/randomval";
 import { PageRequest, PageResponse } from "../cosmos/base/query/v1beta1/pagination";
+import { Userval } from "../random/userval";
 export declare const protobufPackage = "genievot.random.random";
 export interface QueryGetRandomvalRequest {
     index: string;
@@ -13,6 +14,19 @@ export interface QueryAllRandomvalRequest {
 }
 export interface QueryAllRandomvalResponse {
     randomval: Randomval[];
+    pagination: PageResponse | undefined;
+}
+export interface QueryGetUservalRequest {
+    index: string;
+}
+export interface QueryGetUservalResponse {
+    userval: Userval | undefined;
+}
+export interface QueryAllUservalRequest {
+    pagination: PageRequest | undefined;
+}
+export interface QueryAllUservalResponse {
+    userval: Userval[];
     pagination: PageResponse | undefined;
 }
 export declare const QueryGetRandomvalRequest: {
@@ -43,18 +57,52 @@ export declare const QueryAllRandomvalResponse: {
     toJSON(message: QueryAllRandomvalResponse): unknown;
     fromPartial(object: DeepPartial<QueryAllRandomvalResponse>): QueryAllRandomvalResponse;
 };
+export declare const QueryGetUservalRequest: {
+    encode(message: QueryGetUservalRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetUservalRequest;
+    fromJSON(object: any): QueryGetUservalRequest;
+    toJSON(message: QueryGetUservalRequest): unknown;
+    fromPartial(object: DeepPartial<QueryGetUservalRequest>): QueryGetUservalRequest;
+};
+export declare const QueryGetUservalResponse: {
+    encode(message: QueryGetUservalResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetUservalResponse;
+    fromJSON(object: any): QueryGetUservalResponse;
+    toJSON(message: QueryGetUservalResponse): unknown;
+    fromPartial(object: DeepPartial<QueryGetUservalResponse>): QueryGetUservalResponse;
+};
+export declare const QueryAllUservalRequest: {
+    encode(message: QueryAllUservalRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllUservalRequest;
+    fromJSON(object: any): QueryAllUservalRequest;
+    toJSON(message: QueryAllUservalRequest): unknown;
+    fromPartial(object: DeepPartial<QueryAllUservalRequest>): QueryAllUservalRequest;
+};
+export declare const QueryAllUservalResponse: {
+    encode(message: QueryAllUservalResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllUservalResponse;
+    fromJSON(object: any): QueryAllUservalResponse;
+    toJSON(message: QueryAllUservalResponse): unknown;
+    fromPartial(object: DeepPartial<QueryAllUservalResponse>): QueryAllUservalResponse;
+};
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Queries a randomval by index. */
     Randomval(request: QueryGetRandomvalRequest): Promise<QueryGetRandomvalResponse>;
     /** Queries a list of randomval items. */
     RandomvalAll(request: QueryAllRandomvalRequest): Promise<QueryAllRandomvalResponse>;
+    /** Queries a userval by index. */
+    Userval(request: QueryGetUservalRequest): Promise<QueryGetUservalResponse>;
+    /** Queries a list of userval items. */
+    UservalAll(request: QueryAllUservalRequest): Promise<QueryAllUservalResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
     constructor(rpc: Rpc);
     Randomval(request: QueryGetRandomvalRequest): Promise<QueryGetRandomvalResponse>;
     RandomvalAll(request: QueryAllRandomvalRequest): Promise<QueryAllRandomvalResponse>;
+    Userval(request: QueryGetUservalRequest): Promise<QueryGetUservalResponse>;
+    UservalAll(request: QueryAllUservalRequest): Promise<QueryAllUservalResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

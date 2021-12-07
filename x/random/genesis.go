@@ -13,6 +13,10 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	for _, elem := range genState.RandomvalList {
 		k.SetRandomval(ctx, elem)
 	}
+	// Set all the userval
+	for _, elem := range genState.UservalList {
+		k.SetUserval(ctx, elem)
+	}
 	// this line is used by starport scaffolding # genesis/module/init
 }
 
@@ -21,6 +25,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis := types.DefaultGenesis()
 
 	genesis.RandomvalList = k.GetAllRandomval(ctx)
+	genesis.UservalList = k.GetAllUserval(ctx)
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis

@@ -19,6 +19,14 @@ func TestGenesis(t *testing.T) {
 				Index: "1",
 			},
 		},
+		UservalList: []types.Userval{
+			{
+				Index: "0",
+			},
+			{
+				Index: "1",
+			},
+		},
 		// this line is used by starport scaffolding # genesis/test/state
 	}
 
@@ -29,5 +37,7 @@ func TestGenesis(t *testing.T) {
 
 	require.Len(t, got.RandomvalList, len(genesisState.RandomvalList))
 	require.Subset(t, genesisState.RandomvalList, got.RandomvalList)
+	require.Len(t, got.UservalList, len(genesisState.UservalList))
+	require.Subset(t, genesisState.UservalList, got.UservalList)
 	// this line is used by starport scaffolding # genesis/test/assert
 }

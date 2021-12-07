@@ -3,9 +3,10 @@ import { txClient, queryClient, MissingWalletError } from './module'
 import { SpVuexError } from '@starport/vuex'
 
 import { Randomval } from "./module/types/random/randomval"
+import { Userval } from "./module/types/random/userval"
 
 
-export { Randomval };
+export { Randomval, Userval };
 
 async function initTxClient(vuexGetters) {
 	return await txClient(vuexGetters['common/wallet/signer'], {
@@ -45,9 +46,12 @@ const getDefaultState = () => {
 	return {
 				Randomval: {},
 				RandomvalAll: {},
+				Userval: {},
+				UservalAll: {},
 				
 				_Structure: {
 						Randomval: getStructure(Randomval.fromPartial({})),
+						Userval: getStructure(Userval.fromPartial({})),
 						
 		},
 		_Subscriptions: new Set(),
@@ -86,6 +90,18 @@ export default {
 						(<any> params).query=null
 					}
 			return state.RandomvalAll[JSON.stringify(params)] ?? {}
+		},
+				getUserval: (state) => (params = { params: {}}) => {
+					if (!(<any> params).query) {
+						(<any> params).query=null
+					}
+			return state.Userval[JSON.stringify(params)] ?? {}
+		},
+				getUservalAll: (state) => (params = { params: {}}) => {
+					if (!(<any> params).query) {
+						(<any> params).query=null
+					}
+			return state.UservalAll[JSON.stringify(params)] ?? {}
 		},
 				
 		getTypeStructure: (state) => (type) => {
@@ -158,6 +174,52 @@ export default {
 				return getters['getRandomvalAll']( { params: {...key}, query}) ?? {}
 			} catch (e) {
 				throw new SpVuexError('QueryClient:QueryRandomvalAll', 'API Node Unavailable. Could not perform query: ' + e.message)
+				
+			}
+		},
+		
+		
+		
+		
+		 		
+		
+		
+		async QueryUserval({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params: {...key}, query=null }) {
+			try {
+				const queryClient=await initQueryClient(rootGetters)
+				let value= (await queryClient.queryUserval( key.index)).data
+				
+					
+				commit('QUERY', { query: 'Userval', key: { params: {...key}, query}, value })
+				if (subscribe) commit('SUBSCRIBE', { action: 'QueryUserval', payload: { options: { all }, params: {...key},query }})
+				return getters['getUserval']( { params: {...key}, query}) ?? {}
+			} catch (e) {
+				throw new SpVuexError('QueryClient:QueryUserval', 'API Node Unavailable. Could not perform query: ' + e.message)
+				
+			}
+		},
+		
+		
+		
+		
+		 		
+		
+		
+		async QueryUservalAll({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params: {...key}, query=null }) {
+			try {
+				const queryClient=await initQueryClient(rootGetters)
+				let value= (await queryClient.queryUservalAll(query)).data
+				
+					
+				while (all && (<any> value).pagination && (<any> value).pagination.nextKey!=null) {
+					let next_values=(await queryClient.queryUservalAll({...query, 'pagination.key':(<any> value).pagination.nextKey})).data
+					value = mergeResults(value, next_values);
+				}
+				commit('QUERY', { query: 'UservalAll', key: { params: {...key}, query}, value })
+				if (subscribe) commit('SUBSCRIBE', { action: 'QueryUservalAll', payload: { options: { all }, params: {...key},query }})
+				return getters['getUservalAll']( { params: {...key}, query}) ?? {}
+			} catch (e) {
+				throw new SpVuexError('QueryClient:QueryUservalAll', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},

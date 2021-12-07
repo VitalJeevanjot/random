@@ -1,10 +1,12 @@
 import { Randomval } from "../random/randomval";
+import { Userval } from "../random/userval";
 import { Writer, Reader } from "protobufjs/minimal";
 export declare const protobufPackage = "genievot.random.random";
 /** GenesisState defines the random module's genesis state. */
 export interface GenesisState {
-    /** this line is used by starport scaffolding # genesis/proto/state */
     randomvalList: Randomval[];
+    /** this line is used by starport scaffolding # genesis/proto/state */
+    uservalList: Userval[];
 }
 export declare const GenesisState: {
     encode(message: GenesisState, writer?: Writer): Writer;

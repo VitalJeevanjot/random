@@ -4,6 +4,7 @@ package genievot.random.random;
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "random/randomval.proto";
+import "random/userval.proto";
 // this line is used by starport scaffolding # 1
 import "gogoproto/gogo.proto";
 
@@ -19,6 +20,16 @@ service Query {
 	// Queries a list of randomval items.
 	rpc RandomvalAll(QueryAllRandomvalRequest) returns (QueryAllRandomvalResponse) {
 		option (google.api.http).get = "/genievot/random/random/randomval";
+	}
+
+// Queries a userval by index.
+	rpc Userval(QueryGetUservalRequest) returns (QueryGetUservalResponse) {
+		option (google.api.http).get = "/genievot/random/random/userval/{index}";
+	}
+
+	// Queries a list of userval items.
+	rpc UservalAll(QueryAllUservalRequest) returns (QueryAllUservalResponse) {
+		option (google.api.http).get = "/genievot/random/random/userval";
 	}
 
 // this line is used by starport scaffolding # 2
@@ -39,6 +50,24 @@ message QueryAllRandomvalRequest {
 
 message QueryAllRandomvalResponse {
 	repeated Randomval randomval = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetUservalRequest {
+	  string index = 1;
+
+}
+
+message QueryGetUservalResponse {
+	Userval userval = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllUservalRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllUservalResponse {
+	repeated Userval userval = 1 [(gogoproto.nullable) = false];
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 

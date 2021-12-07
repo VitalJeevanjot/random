@@ -2,6 +2,7 @@ syntax = "proto3";
 package genievot.random.random;
 
 import "random/randomval.proto";
+import "random/userval.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 import "gogoproto/gogo.proto";
 
@@ -10,5 +11,6 @@ option go_package = "github.com/genievot/random/x/random/types";
 // GenesisState defines the random module's genesis state.
 message GenesisState {
     repeated Randomval randomvalList = 1 [(gogoproto.nullable) = false];
+  repeated Userval uservalList = 2 [(gogoproto.nullable) = false];
   // this line is used by starport scaffolding # genesis/proto/state
 }

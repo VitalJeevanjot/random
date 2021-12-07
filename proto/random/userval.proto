@@ -1,0 +1,14 @@
+syntax = "proto3";
+package genievot.random.random;
+
+option go_package = "github.com/genievot/random/x/random/types";
+
+
+
+message Userval {
+  string index = 1; 
+  string useraddr = 2; 
+  string count = 3; 
+  
+}
+

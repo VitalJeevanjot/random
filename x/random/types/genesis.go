@@ -11,6 +11,7 @@ const DefaultIndex uint64 = 1
 func DefaultGenesis() *GenesisState {
 	return &GenesisState{
 		RandomvalList: []Randomval{},
+		UservalList:   []Userval{},
 		// this line is used by starport scaffolding # genesis/types/default
 	}
 }
@@ -27,6 +28,16 @@ func (gs GenesisState) Validate() error {
 			return fmt.Errorf("duplicated index for randomval")
 		}
 		randomvalIndexMap[index] = struct{}{}
+	}
+	// Check for duplicated index in userval
+	uservalIndexMap := make(map[string]struct{})
+
+	for _, elem := range gs.UservalList {
+		index := string(UservalKey(elem.Index))
+		if _, ok := uservalIndexMap[index]; ok {
+			return fmt.Errorf("duplicated index for userval")
+		}
+		uservalIndexMap[index] = struct{}{}
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 

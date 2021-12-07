@@ -1,13 +1,15 @@
 /* eslint-disable */
 import { Randomval } from "../random/randomval";
+import { Userval } from "../random/userval";
 import { Writer, Reader } from "protobufjs/minimal";
 
 export const protobufPackage = "genievot.random.random";
 
 /** GenesisState defines the random module's genesis state. */
 export interface GenesisState {
-  /** this line is used by starport scaffolding # genesis/proto/state */
   randomvalList: Randomval[];
+  /** this line is used by starport scaffolding # genesis/proto/state */
+  uservalList: Userval[];
 }
 
 const baseGenesisState: object = {};
@@ -17,6 +19,9 @@ export const GenesisState = {
     for (const v of message.randomvalList) {
       Randomval.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+    for (const v of message.uservalList) {
+      Userval.encode(v!, writer.uint32(18).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -25,11 +30,15 @@ export const GenesisState = {
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseGenesisState } as GenesisState;
     message.randomvalList = [];
+    message.uservalList = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
           message.randomvalList.push(Randomval.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.uservalList.push(Userval.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -42,9 +51,15 @@ export const GenesisState = {
   fromJSON(object: any): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
     message.randomvalList = [];
+    message.uservalList = [];
     if (object.randomvalList !== undefined && object.randomvalList !== null) {
       for (const e of object.randomvalList) {
         message.randomvalList.push(Randomval.fromJSON(e));
+      }
+    }
+    if (object.uservalList !== undefined && object.uservalList !== null) {
+      for (const e of object.uservalList) {
+        message.uservalList.push(Userval.fromJSON(e));
       }
     }
     return message;
@@ -59,15 +74,28 @@ export const GenesisState = {
     } else {
       obj.randomvalList = [];
     }
+    if (message.uservalList) {
+      obj.uservalList = message.uservalList.map((e) =>
+        e ? Userval.toJSON(e) : undefined
+      );
+    } else {
+      obj.uservalList = [];
+    }
     return obj;
   },
 
   fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
     message.randomvalList = [];
+    message.uservalList = [];
     if (object.randomvalList !== undefined && object.randomvalList !== null) {
       for (const e of object.randomvalList) {
         message.randomvalList.push(Randomval.fromPartial(e));
+      }
+    }
+    if (object.uservalList !== undefined && object.uservalList !== null) {
+      for (const e of object.uservalList) {
+        message.uservalList.push(Userval.fromPartial(e));
       }
     }
     return message;

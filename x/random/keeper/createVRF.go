@@ -9,9 +9,6 @@ import (
 )
 
 func (k Keeper) CreateRandomNumber(ctx sdk.Context, msg *types.MsgCreateRandom) uint64 {
-	fmt.Println(msg.Creator)
-	fmt.Println(msg.OutputCap)
-
 	sk, err := vrf.GenerateKey(nil)
 	if err != nil {
 		fmt.Println(err)

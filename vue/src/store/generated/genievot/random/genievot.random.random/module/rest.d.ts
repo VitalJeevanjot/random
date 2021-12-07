@@ -18,8 +18,24 @@ export interface RandomQueryAllRandomvalResponse {
      */
     pagination?: V1Beta1PageResponse;
 }
+export interface RandomQueryAllUservalResponse {
+    userval?: RandomUserval[];
+    /**
+     * PageResponse is to be embedded in gRPC response messages where the
+     * corresponding request message has used PageRequest.
+     *
+     *  message SomeResponse {
+     *          repeated Bar results = 1;
+     *          PageResponse page = 2;
+     *  }
+     */
+    pagination?: V1Beta1PageResponse;
+}
 export interface RandomQueryGetRandomvalResponse {
     randomval?: RandomRandomval;
+}
+export interface RandomQueryGetUservalResponse {
+    userval?: RandomUserval;
 }
 export interface RandomRandomval {
     index?: string;
@@ -28,6 +44,11 @@ export interface RandomRandomval {
     proof?: string;
     ubk?: string;
     message?: string;
+}
+export interface RandomUserval {
+    index?: string;
+    useraddr?: string;
+    count?: string;
 }
 export interface RpcStatus {
     /** @format int32 */
@@ -169,5 +190,29 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/genievot/random/random/randomval/{index}
      */
     queryRandomval: (index: string, params?: RequestParams) => Promise<HttpResponse<RandomQueryGetRandomvalResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryUservalAll
+     * @summary Queries a list of userval items.
+     * @request GET:/genievot/random/random/userval
+     */
+    queryUservalAll: (query?: {
+        "pagination.key"?: string;
+        "pagination.offset"?: string;
+        "pagination.limit"?: string;
+        "pagination.countTotal"?: boolean;
+        "pagination.reverse"?: boolean;
+    }, params?: RequestParams) => Promise<HttpResponse<RandomQueryAllUservalResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryUserval
+     * @summary Queries a userval by index.
+     * @request GET:/genievot/random/random/userval/{index}
+     */
+    queryUserval: (index: string, params?: RequestParams) => Promise<HttpResponse<RandomQueryGetUservalResponse, RpcStatus>>;
 }
 export {};
