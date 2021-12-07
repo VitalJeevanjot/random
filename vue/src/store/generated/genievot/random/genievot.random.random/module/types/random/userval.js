@@ -1,7 +1,8 @@
 /* eslint-disable */
-import { Writer, Reader } from "protobufjs/minimal";
+import * as Long from "long";
+import { util, configure, Writer, Reader } from "protobufjs/minimal";
 export const protobufPackage = "genievot.random.random";
-const baseUserval = { index: "", useraddr: "", count: "" };
+const baseUserval = { index: "", useraddr: "", count: 0 };
 export const Userval = {
     encode(message, writer = Writer.create()) {
         if (message.index !== "") {
@@ -10,8 +11,8 @@ export const Userval = {
         if (message.useraddr !== "") {
             writer.uint32(18).string(message.useraddr);
         }
-        if (message.count !== "") {
-            writer.uint32(26).string(message.count);
+        if (message.count !== 0) {
+            writer.uint32(24).int64(message.count);
         }
         return writer;
     },
@@ -29,7 +30,7 @@ export const Userval = {
                     message.useraddr = reader.string();
                     break;
                 case 3:
-                    message.count = reader.string();
+                    message.count = longToNumber(reader.int64());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -53,10 +54,10 @@ export const Userval = {
             message.useraddr = "";
         }
         if (object.count !== undefined && object.count !== null) {
-            message.count = String(object.count);
+            message.count = Number(object.count);
         }
         else {
-            message.count = "";
+            message.count = 0;
         }
         return message;
     },
@@ -85,8 +86,29 @@ export const Userval = {
             message.count = object.count;
         }
         else {
-            message.count = "";
+            message.count = 0;
         }
         return message;
     },
 };
+var globalThis = (() => {
+    if (typeof globalThis !== "undefined")
+        return globalThis;
+    if (typeof self !== "undefined")
+        return self;
+    if (typeof window !== "undefined")
+        return window;
+    if (typeof global !== "undefined")
+        return global;
+    throw "Unable to locate global object";
+})();
+function longToNumber(long) {
+    if (long.gt(Number.MAX_SAFE_INTEGER)) {
+        throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+    }
+    return long.toNumber();
+}
+if (util.Long !== Long) {
+    util.Long = Long;
+    configure();
+}

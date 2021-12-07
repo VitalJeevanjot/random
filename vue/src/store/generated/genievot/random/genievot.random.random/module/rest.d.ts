@@ -39,15 +39,21 @@ export interface RandomQueryGetUservalResponse {
 }
 export interface RandomRandomval {
     index?: string;
+    creator?: string;
     vrv?: string;
     outcap?: string;
     proof?: string;
-    ubk?: string;
+    pubk?: string;
     message?: string;
+    /** @format int64 */
+    parsedvrv?: string;
+    /** @format int64 */
+    finalvrv?: string;
 }
 export interface RandomUserval {
     index?: string;
     useraddr?: string;
+    /** @format int64 */
     count?: string;
 }
 export interface RpcStatus {

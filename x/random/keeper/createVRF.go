@@ -2,48 +2,56 @@ package keeper
 
 import (
 	"encoding/hex"
+	"strconv"
 	"github.com/coniks-sys/coniks-go/crypto/vrf"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/genievot/random/x/random/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-func (k Keeper) CreateRandomNumber(ctx sdk.Context, msg *types.MsgCreateRandom) uint64 {
+func (k Keeper) CreateRandomNumber(ctx sdk.Context, msg *types.MsgCreateRandom) error {
 
 	userval, isFound := k.GetUserval(ctx, msg.Creator)
-
+	
+	var user_key_count int64 = 0
 	if isFound {
-		count_now := userval.Count + 1
-	} else {
-		count_now := 0
+		user_key_count = userval.Count+1
 	}
 
 	sk, err := vrf.GenerateKey(nil)
 	if err != nil {
 		return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Secret Key is not generated")
 	}
-
-	random_vals_key := msg.Creator + "," + count_now
-	a_message := []byte(random_vals_key)
-
 	
+	random_val_key := msg.Creator + "," + strconv.FormatInt(user_key_count, 10)
+	a_message := []byte(random_val_key)
+
+	vrv, proof := sk.Prove(a_message) // Generate vrv (verifiable random value) and proof
+	pub_key, ok_bool := sk.Public() // public key creation
+
+	if ok_bool == false {
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Public Key is not generated")
+	}
+
+	newRandomVal := types.Randomval {
+		Index: random_val_key,
+		Creator: msg.Creator,
+		Vrv: hex.EncodeToString(vrv),
+		Outcap: msg.OutputCap,
+		Proof: hex.EncodeToString(proof),
+		Pubk: hex.EncodeToString(pub_key),
+		Message: random_val_key,
+		Parsedvrv: 55,
+		Finalvrv: 56,
+	}
 
 	newUserVal := types.Userval {
 			Index: msg.Creator,
 			Useraddr: msg.Creator,
-			Count: count_now
+			Count: user_key_count,
 	}
 
-
-	sk, err := vrf.GenerateKey(nil)
-	if err != nil {
-		fmt.Println(err)
-		return 11
-	}
-	fmt.Println("GeneratedKey:", hex.EncodeToString(sk))
-	a_message := []byte("Here is a string....")
-
-	comp := sk.Compute(a_message)
-	fmt.Println("Computed:", hex.EncodeToString(comp))
-	return 54
+	k.SetRandomval(ctx, newRandomVal)
+	k.SetUserval(ctx, newUserVal)
+	return nil
 }

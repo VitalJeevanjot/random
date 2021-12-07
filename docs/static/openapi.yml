@@ -11786,16 +11786,24 @@ paths:
                   properties:
                     index:
                       type: string
+                    creator:
+                      type: string
                     vrv:
                       type: string
                     outcap:
                       type: string
                     proof:
                       type: string
-                    ubk:
+                    pubk:
                       type: string
                     message:
                       type: string
+                    parsedvrv:
+                      type: string
+                      format: int64
+                    finalvrv:
+                      type: string
+                      format: int64
               pagination:
                 type: object
                 properties:
@@ -11912,16 +11920,24 @@ paths:
                 properties:
                   index:
                     type: string
+                  creator:
+                    type: string
                   vrv:
                     type: string
                   outcap:
                     type: string
                   proof:
                     type: string
-                  ubk:
+                  pubk:
                     type: string
                   message:
                     type: string
+                  parsedvrv:
+                    type: string
+                    format: int64
+                  finalvrv:
+                    type: string
+                    format: int64
         default:
           description: An unexpected error response.
           schema:
@@ -11968,6 +11984,7 @@ paths:
                       type: string
                     count:
                       type: string
+                      format: int64
               pagination:
                 type: object
                 properties:
@@ -12088,6 +12105,7 @@ paths:
                     type: string
                   count:
                     type: string
+                    format: int64
         default:
           description: An unexpected error response.
           schema:
@@ -20010,16 +20028,24 @@ definitions:
           properties:
             index:
               type: string
+            creator:
+              type: string
             vrv:
               type: string
             outcap:
               type: string
             proof:
               type: string
-            ubk:
+            pubk:
               type: string
             message:
               type: string
+            parsedvrv:
+              type: string
+              format: int64
+            finalvrv:
+              type: string
+              format: int64
       pagination:
         type: object
         properties:
@@ -20059,6 +20085,7 @@ definitions:
               type: string
             count:
               type: string
+              format: int64
       pagination:
         type: object
         properties:
@@ -20092,16 +20119,24 @@ definitions:
         properties:
           index:
             type: string
+          creator:
+            type: string
           vrv:
             type: string
           outcap:
             type: string
           proof:
             type: string
-          ubk:
+          pubk:
             type: string
           message:
             type: string
+          parsedvrv:
+            type: string
+            format: int64
+          finalvrv:
+            type: string
+            format: int64
   genievot.random.random.QueryGetUservalResponse:
     type: object
     properties:
@@ -20114,10 +20149,13 @@ definitions:
             type: string
           count:
             type: string
+            format: int64
   genievot.random.random.Randomval:
     type: object
     properties:
       index:
+        type: string
+      creator:
         type: string
       vrv:
         type: string
@@ -20125,10 +20163,16 @@ definitions:
         type: string
       proof:
         type: string
-      ubk:
+      pubk:
         type: string
       message:
         type: string
+      parsedvrv:
+        type: string
+        format: int64
+      finalvrv:
+        type: string
+        format: int64
   genievot.random.random.Userval:
     type: object
     properties:
@@ -20138,6 +20182,7 @@ definitions:
         type: string
       count:
         type: string
+        format: int64
   ibc.applications.transfer.v1.DenomTrace:
     type: object
     properties:

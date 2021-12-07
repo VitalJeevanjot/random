@@ -2,11 +2,14 @@ import { Writer, Reader } from "protobufjs/minimal";
 export declare const protobufPackage = "genievot.random.random";
 export interface Randomval {
     index: string;
+    creator: string;
     vrv: string;
     outcap: string;
     proof: string;
-    ubk: string;
+    pubk: string;
     message: string;
+    parsedvrv: number;
+    finalvrv: number;
 }
 export declare const Randomval: {
     encode(message: Randomval, writer?: Writer): Writer;

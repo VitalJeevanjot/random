@@ -3,7 +3,7 @@ export declare const protobufPackage = "genievot.random.random";
 export interface Userval {
     index: string;
     useraddr: string;
-    count: string;
+    count: number;
 }
 export declare const Userval: {
     encode(message: Userval, writer?: Writer): Writer;

@@ -1,33 +1,46 @@
 /* eslint-disable */
-import { Writer, Reader } from "protobufjs/minimal";
+import * as Long from "long";
+import { util, configure, Writer, Reader } from "protobufjs/minimal";
 export const protobufPackage = "genievot.random.random";
 const baseRandomval = {
     index: "",
+    creator: "",
     vrv: "",
     outcap: "",
     proof: "",
-    ubk: "",
+    pubk: "",
     message: "",
+    parsedvrv: 0,
+    finalvrv: 0,
 };
 export const Randomval = {
     encode(message, writer = Writer.create()) {
         if (message.index !== "") {
             writer.uint32(10).string(message.index);
         }
+        if (message.creator !== "") {
+            writer.uint32(18).string(message.creator);
+        }
         if (message.vrv !== "") {
-            writer.uint32(18).string(message.vrv);
+            writer.uint32(26).string(message.vrv);
         }
         if (message.outcap !== "") {
-            writer.uint32(26).string(message.outcap);
+            writer.uint32(34).string(message.outcap);
         }
         if (message.proof !== "") {
-            writer.uint32(34).string(message.proof);
+            writer.uint32(42).string(message.proof);
         }
-        if (message.ubk !== "") {
-            writer.uint32(42).string(message.ubk);
+        if (message.pubk !== "") {
+            writer.uint32(50).string(message.pubk);
         }
         if (message.message !== "") {
-            writer.uint32(50).string(message.message);
+            writer.uint32(58).string(message.message);
+        }
+        if (message.parsedvrv !== 0) {
+            writer.uint32(64).int64(message.parsedvrv);
+        }
+        if (message.finalvrv !== 0) {
+            writer.uint32(72).int64(message.finalvrv);
         }
         return writer;
     },
@@ -42,19 +55,28 @@ export const Randomval = {
                     message.index = reader.string();
                     break;
                 case 2:
-                    message.vrv = reader.string();
+                    message.creator = reader.string();
                     break;
                 case 3:
-                    message.outcap = reader.string();
+                    message.vrv = reader.string();
                     break;
                 case 4:
-                    message.proof = reader.string();
+                    message.outcap = reader.string();
                     break;
                 case 5:
-                    message.ubk = reader.string();
+                    message.proof = reader.string();
                     break;
                 case 6:
+                    message.pubk = reader.string();
+                    break;
+                case 7:
                     message.message = reader.string();
+                    break;
+                case 8:
+                    message.parsedvrv = longToNumber(reader.int64());
+                    break;
+                case 9:
+                    message.finalvrv = longToNumber(reader.int64());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -70,6 +92,12 @@ export const Randomval = {
         }
         else {
             message.index = "";
+        }
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
         }
         if (object.vrv !== undefined && object.vrv !== null) {
             message.vrv = String(object.vrv);
@@ -89,11 +117,11 @@ export const Randomval = {
         else {
             message.proof = "";
         }
-        if (object.ubk !== undefined && object.ubk !== null) {
-            message.ubk = String(object.ubk);
+        if (object.pubk !== undefined && object.pubk !== null) {
+            message.pubk = String(object.pubk);
         }
         else {
-            message.ubk = "";
+            message.pubk = "";
         }
         if (object.message !== undefined && object.message !== null) {
             message.message = String(object.message);
@@ -101,16 +129,31 @@ export const Randomval = {
         else {
             message.message = "";
         }
+        if (object.parsedvrv !== undefined && object.parsedvrv !== null) {
+            message.parsedvrv = Number(object.parsedvrv);
+        }
+        else {
+            message.parsedvrv = 0;
+        }
+        if (object.finalvrv !== undefined && object.finalvrv !== null) {
+            message.finalvrv = Number(object.finalvrv);
+        }
+        else {
+            message.finalvrv = 0;
+        }
         return message;
     },
     toJSON(message) {
         const obj = {};
         message.index !== undefined && (obj.index = message.index);
+        message.creator !== undefined && (obj.creator = message.creator);
         message.vrv !== undefined && (obj.vrv = message.vrv);
         message.outcap !== undefined && (obj.outcap = message.outcap);
         message.proof !== undefined && (obj.proof = message.proof);
-        message.ubk !== undefined && (obj.ubk = message.ubk);
+        message.pubk !== undefined && (obj.pubk = message.pubk);
         message.message !== undefined && (obj.message = message.message);
+        message.parsedvrv !== undefined && (obj.parsedvrv = message.parsedvrv);
+        message.finalvrv !== undefined && (obj.finalvrv = message.finalvrv);
         return obj;
     },
     fromPartial(object) {
@@ -120,6 +163,12 @@ export const Randomval = {
         }
         else {
             message.index = "";
+        }
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
         }
         if (object.vrv !== undefined && object.vrv !== null) {
             message.vrv = object.vrv;
@@ -139,11 +188,11 @@ export const Randomval = {
         else {
             message.proof = "";
         }
-        if (object.ubk !== undefined && object.ubk !== null) {
-            message.ubk = object.ubk;
+        if (object.pubk !== undefined && object.pubk !== null) {
+            message.pubk = object.pubk;
         }
         else {
-            message.ubk = "";
+            message.pubk = "";
         }
         if (object.message !== undefined && object.message !== null) {
             message.message = object.message;
@@ -151,6 +200,39 @@ export const Randomval = {
         else {
             message.message = "";
         }
+        if (object.parsedvrv !== undefined && object.parsedvrv !== null) {
+            message.parsedvrv = object.parsedvrv;
+        }
+        else {
+            message.parsedvrv = 0;
+        }
+        if (object.finalvrv !== undefined && object.finalvrv !== null) {
+            message.finalvrv = object.finalvrv;
+        }
+        else {
+            message.finalvrv = 0;
+        }
         return message;
     },
 };
+var globalThis = (() => {
+    if (typeof globalThis !== "undefined")
+        return globalThis;
+    if (typeof self !== "undefined")
+        return self;
+    if (typeof window !== "undefined")
+        return window;
+    if (typeof global !== "undefined")
+        return global;
+    throw "Unable to locate global object";
+})();
+function longToNumber(long) {
+    if (long.gt(Number.MAX_SAFE_INTEGER)) {
+        throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+    }
+    return long.toNumber();
+}
+if (util.Long !== Long) {
+    util.Long = Long;
+    configure();
+}

@@ -23,12 +23,15 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type Randomval struct {
-	Index   string `protobuf:"bytes,1,opt,name=index,proto3" json:"index,omitempty"`
-	Vrv     string `protobuf:"bytes,2,opt,name=vrv,proto3" json:"vrv,omitempty"`
-	Outcap  string `protobuf:"bytes,3,opt,name=outcap,proto3" json:"outcap,omitempty"`
-	Proof   string `protobuf:"bytes,4,opt,name=proof,proto3" json:"proof,omitempty"`
-	Ubk     string `protobuf:"bytes,5,opt,name=ubk,proto3" json:"ubk,omitempty"`
-	Message string `protobuf:"bytes,6,opt,name=message,proto3" json:"message,omitempty"`
+	Index     string `protobuf:"bytes,1,opt,name=index,proto3" json:"index,omitempty"`
+	Creator   string `protobuf:"bytes,2,opt,name=creator,proto3" json:"creator,omitempty"`
+	Vrv       string `protobuf:"bytes,3,opt,name=vrv,proto3" json:"vrv,omitempty"`
+	Outcap    string `protobuf:"bytes,4,opt,name=outcap,proto3" json:"outcap,omitempty"`
+	Proof     string `protobuf:"bytes,5,opt,name=proof,proto3" json:"proof,omitempty"`
+	Pubk      string `protobuf:"bytes,6,opt,name=pubk,proto3" json:"pubk,omitempty"`
+	Message   string `protobuf:"bytes,7,opt,name=message,proto3" json:"message,omitempty"`
+	Parsedvrv int64  `protobuf:"varint,8,opt,name=parsedvrv,proto3" json:"parsedvrv,omitempty"`
+	Finalvrv  int64  `protobuf:"varint,9,opt,name=finalvrv,proto3" json:"finalvrv,omitempty"`
 }
 
 func (m *Randomval) Reset()         { *m = Randomval{} }
@@ -71,6 +74,13 @@ func (m *Randomval) GetIndex() string {
 	return ""
 }
 
+func (m *Randomval) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
 func (m *Randomval) GetVrv() string {
 	if m != nil {
 		return m.Vrv
@@ -92,9 +102,9 @@ func (m *Randomval) GetProof() string {
 	return ""
 }
 
-func (m *Randomval) GetUbk() string {
+func (m *Randomval) GetPubk() string {
 	if m != nil {
-		return m.Ubk
+		return m.Pubk
 	}
 	return ""
 }
@@ -106,6 +116,20 @@ func (m *Randomval) GetMessage() string {
 	return ""
 }
 
+func (m *Randomval) GetParsedvrv() int64 {
+	if m != nil {
+		return m.Parsedvrv
+	}
+	return 0
+}
+
+func (m *Randomval) GetFinalvrv() int64 {
+	if m != nil {
+		return m.Finalvrv
+	}
+	return 0
+}
+
 func init() {
 	proto.RegisterType((*Randomval)(nil), "genievot.random.random.Randomval")
 }
@@ -113,21 +137,24 @@ func init() {
 func init() { proto.RegisterFile("random/randomval.proto", fileDescriptor_47acd85569ce3b35) }
 
 var fileDescriptor_47acd85569ce3b35 = []byte{
-	// 213 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x2b, 0x4a, 0xcc, 0x4b,
-	0xc9, 0xcf, 0xd5, 0x87, 0x50, 0x65, 0x89, 0x39, 0x7a, 0x05, 0x45, 0xf9, 0x25, 0xf9, 0x42, 0x62,
-	0xe9, 0xa9, 0x79, 0x99, 0xa9, 0x65, 0xf9, 0x25, 0x7a, 0x10, 0x19, 0x28, 0xa5, 0xd4, 0xcb, 0xc8,
-	0xc5, 0x19, 0x04, 0x53, 0x2b, 0x24, 0xc2, 0xc5, 0x9a, 0x99, 0x97, 0x92, 0x5a, 0x21, 0xc1, 0xa8,
-	0xc0, 0xa8, 0xc1, 0x19, 0x04, 0xe1, 0x08, 0x09, 0x70, 0x31, 0x97, 0x15, 0x95, 0x49, 0x30, 0x81,
-	0xc5, 0x40, 0x4c, 0x21, 0x31, 0x2e, 0xb6, 0xfc, 0xd2, 0x92, 0xe4, 0xc4, 0x02, 0x09, 0x66, 0xb0,
-	0x20, 0x94, 0x07, 0xd2, 0x5f, 0x50, 0x94, 0x9f, 0x9f, 0x26, 0xc1, 0x02, 0xd1, 0x0f, 0xe6, 0x80,
-	0xf4, 0x97, 0x26, 0x65, 0x4b, 0xb0, 0x42, 0xf4, 0x97, 0x26, 0x65, 0x0b, 0x49, 0x70, 0xb1, 0xe7,
-	0xa6, 0x16, 0x17, 0x27, 0xa6, 0xa7, 0x4a, 0xb0, 0x81, 0x45, 0x61, 0x5c, 0x27, 0xe7, 0x13, 0x8f,
-	0xe4, 0x18, 0x2f, 0x3c, 0x92, 0x63, 0x7c, 0xf0, 0x48, 0x8e, 0x71, 0xc2, 0x63, 0x39, 0x86, 0x0b,
-	0x8f, 0xe5, 0x18, 0x6e, 0x3c, 0x96, 0x63, 0x88, 0xd2, 0x4c, 0xcf, 0x2c, 0xc9, 0x28, 0x4d, 0xd2,
-	0x4b, 0xce, 0xcf, 0xd5, 0x87, 0x79, 0x06, 0xea, 0x4d, 0xfd, 0x0a, 0x18, 0xa3, 0xa4, 0xb2, 0x20,
-	0xb5, 0x38, 0x89, 0x0d, 0xec, 0x67, 0x63, 0x40, 0x00, 0x00, 0x00, 0xff, 0xff, 0xe9, 0x29, 0x95,
-	0x5e, 0x0d, 0x01, 0x00, 0x00,
+	// 258 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x44, 0x90, 0xb1, 0x6e, 0xb3, 0x30,
+	0x14, 0x85, 0xf1, 0x4f, 0x42, 0x82, 0xa7, 0x5f, 0x57, 0x15, 0xb2, 0xaa, 0xca, 0x8a, 0x3a, 0xa5,
+	0x0b, 0x0c, 0x7d, 0x83, 0xf6, 0x0d, 0x18, 0xbb, 0x19, 0x70, 0x28, 0x6a, 0xe0, 0x5a, 0xc6, 0xa0,
+	0xf4, 0x2d, 0xfa, 0x58, 0x1d, 0x33, 0x76, 0xac, 0xe0, 0x45, 0x2a, 0xdb, 0xd0, 0x4e, 0x3e, 0xdf,
+	0x39, 0xd6, 0x3d, 0xd2, 0xa1, 0x89, 0x16, 0x5d, 0x85, 0x6d, 0xe6, 0x9f, 0x51, 0x9c, 0x53, 0xa5,
+	0xd1, 0x20, 0x24, 0xb5, 0xec, 0x1a, 0x39, 0xa2, 0x49, 0x7d, 0xb2, 0x3c, 0xf7, 0x33, 0xa1, 0x71,
+	0xbe, 0xfe, 0x85, 0x1b, 0xba, 0x6d, 0xba, 0x4a, 0x5e, 0x18, 0x39, 0x90, 0x63, 0x9c, 0x7b, 0x00,
+	0x46, 0x77, 0xa5, 0x96, 0xc2, 0xa0, 0x66, 0xff, 0x9c, 0xbf, 0x22, 0xfc, 0xa7, 0xe1, 0xa8, 0x47,
+	0x16, 0x3a, 0xd7, 0x4a, 0x48, 0x68, 0x84, 0x83, 0x29, 0x85, 0x62, 0x1b, 0x67, 0x2e, 0x64, 0x2f,
+	0x2b, 0x8d, 0x78, 0x62, 0x5b, 0x7f, 0xd9, 0x01, 0x00, 0xdd, 0xa8, 0xa1, 0x78, 0x63, 0x91, 0x33,
+	0x9d, 0xb6, 0x6d, 0xad, 0xec, 0x7b, 0x51, 0x4b, 0xb6, 0xf3, 0x6d, 0x0b, 0xc2, 0x1d, 0x8d, 0x95,
+	0xd0, 0xbd, 0xac, 0x6c, 0xe7, 0xfe, 0x40, 0x8e, 0x61, 0xfe, 0x67, 0xc0, 0x2d, 0xdd, 0x9f, 0x9a,
+	0x4e, 0x9c, 0x6d, 0x18, 0xbb, 0xf0, 0x97, 0x9f, 0x9e, 0x3f, 0x27, 0x4e, 0xae, 0x13, 0x27, 0xdf,
+	0x13, 0x27, 0x1f, 0x33, 0x0f, 0xae, 0x33, 0x0f, 0xbe, 0x66, 0x1e, 0xbc, 0x3c, 0xd4, 0x8d, 0x79,
+	0x1d, 0x8a, 0xb4, 0xc4, 0x36, 0x5b, 0x27, 0x5a, 0xc6, 0xcb, 0x2e, 0xab, 0x30, 0xef, 0x4a, 0xf6,
+	0x45, 0xe4, 0x96, 0x7c, 0xfc, 0x09, 0x00, 0x00, 0xff, 0xff, 0xf9, 0x73, 0x88, 0xfa, 0x63, 0x01,
+	0x00, 0x00,
 }
 
 func (m *Randomval) Marshal() (dAtA []byte, err error) {
@@ -150,38 +177,55 @@ func (m *Randomval) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	if m.Finalvrv != 0 {
+		i = encodeVarintRandomval(dAtA, i, uint64(m.Finalvrv))
+		i--
+		dAtA[i] = 0x48
+	}
+	if m.Parsedvrv != 0 {
+		i = encodeVarintRandomval(dAtA, i, uint64(m.Parsedvrv))
+		i--
+		dAtA[i] = 0x40
+	}
 	if len(m.Message) > 0 {
 		i -= len(m.Message)
 		copy(dAtA[i:], m.Message)
 		i = encodeVarintRandomval(dAtA, i, uint64(len(m.Message)))
 		i--
-		dAtA[i] = 0x32
+		dAtA[i] = 0x3a
 	}
-	if len(m.Ubk) > 0 {
-		i -= len(m.Ubk)
-		copy(dAtA[i:], m.Ubk)
-		i = encodeVarintRandomval(dAtA, i, uint64(len(m.Ubk)))
+	if len(m.Pubk) > 0 {
+		i -= len(m.Pubk)
+		copy(dAtA[i:], m.Pubk)
+		i = encodeVarintRandomval(dAtA, i, uint64(len(m.Pubk)))
 		i--
-		dAtA[i] = 0x2a
+		dAtA[i] = 0x32
 	}
 	if len(m.Proof) > 0 {
 		i -= len(m.Proof)
 		copy(dAtA[i:], m.Proof)
 		i = encodeVarintRandomval(dAtA, i, uint64(len(m.Proof)))
 		i--
-		dAtA[i] = 0x22
+		dAtA[i] = 0x2a
 	}
 	if len(m.Outcap) > 0 {
 		i -= len(m.Outcap)
 		copy(dAtA[i:], m.Outcap)
 		i = encodeVarintRandomval(dAtA, i, uint64(len(m.Outcap)))
 		i--
-		dAtA[i] = 0x1a
+		dAtA[i] = 0x22
 	}
 	if len(m.Vrv) > 0 {
 		i -= len(m.Vrv)
 		copy(dAtA[i:], m.Vrv)
 		i = encodeVarintRandomval(dAtA, i, uint64(len(m.Vrv)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintRandomval(dAtA, i, uint64(len(m.Creator)))
 		i--
 		dAtA[i] = 0x12
 	}
@@ -216,6 +260,10 @@ func (m *Randomval) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovRandomval(uint64(l))
 	}
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovRandomval(uint64(l))
+	}
 	l = len(m.Vrv)
 	if l > 0 {
 		n += 1 + l + sovRandomval(uint64(l))
@@ -228,13 +276,19 @@ func (m *Randomval) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovRandomval(uint64(l))
 	}
-	l = len(m.Ubk)
+	l = len(m.Pubk)
 	if l > 0 {
 		n += 1 + l + sovRandomval(uint64(l))
 	}
 	l = len(m.Message)
 	if l > 0 {
 		n += 1 + l + sovRandomval(uint64(l))
+	}
+	if m.Parsedvrv != 0 {
+		n += 1 + sovRandomval(uint64(m.Parsedvrv))
+	}
+	if m.Finalvrv != 0 {
+		n += 1 + sovRandomval(uint64(m.Finalvrv))
 	}
 	return n
 }
@@ -308,6 +362,38 @@ func (m *Randomval) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowRandomval
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthRandomval
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthRandomval
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Vrv", wireType)
 			}
 			var stringLen uint64
@@ -338,7 +424,7 @@ func (m *Randomval) Unmarshal(dAtA []byte) error {
 			}
 			m.Vrv = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 3:
+		case 4:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Outcap", wireType)
 			}
@@ -370,7 +456,7 @@ func (m *Randomval) Unmarshal(dAtA []byte) error {
 			}
 			m.Outcap = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 4:
+		case 5:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Proof", wireType)
 			}
@@ -402,9 +488,9 @@ func (m *Randomval) Unmarshal(dAtA []byte) error {
 			}
 			m.Proof = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 5:
+		case 6:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Ubk", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Pubk", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -432,9 +518,9 @@ func (m *Randomval) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Ubk = string(dAtA[iNdEx:postIndex])
+			m.Pubk = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 6:
+		case 7:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Message", wireType)
 			}
@@ -466,6 +552,44 @@ func (m *Randomval) Unmarshal(dAtA []byte) error {
 			}
 			m.Message = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
+		case 8:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Parsedvrv", wireType)
+			}
+			m.Parsedvrv = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowRandomval
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Parsedvrv |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 9:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Finalvrv", wireType)
+			}
+			m.Finalvrv = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowRandomval
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Finalvrv |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
 		default:
 			iNdEx = preIndex
 			skippy, err := skipRandomval(dAtA[iNdEx:])

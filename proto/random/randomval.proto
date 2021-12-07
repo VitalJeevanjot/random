@@ -11,8 +11,9 @@ message Randomval {
   string vrv = 3; 
   string outcap = 4; 
   string proof = 5; 
-  string ubk = 6; 
+  string pubk = 6; 
   string message = 7; 
-  
+  int64 parsedvrv = 8;
+  int64 finalvrv = 9;
 }
 
