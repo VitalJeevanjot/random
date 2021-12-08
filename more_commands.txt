@@ -1,0 +1,14 @@
+steps to check ibc demo after both chains and relayer started. Also check Readme for further instructions...
+
+The flow:
+
+Earth requests to Mars
+- randomd tx random send-req-randomval random channel-0 501 --from alice  --chain-id earth --home ~/.earth
+
+
+List all random values stored at mars
+- randomd q random list-randomval --node tcp://localhost:26659
+
+
+Query received acknowledgements with
+- randomd q random list-sent-randomval

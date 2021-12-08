@@ -76,22 +76,22 @@ func (k Keeper) OnRecvReqRandomvalPacket(ctx sdk.Context, packet channeltypes.Pa
 
 	// TODO: packet reception logic
 
-	randomvalAck, newUserVal, err := k.CreateRandomNumber(ctx, "IBC-"+packet.SourcePort+"-"+packet.SourceChannel+"-"+data.Creator, data.Multiplier)
+	randomvalAck, _, err := k.CreateRandomNumber(ctx, "IBC-"+packet.SourcePort+"-"+packet.SourceChannel+"-"+data.Creator, data.Multiplier)
 
 	packetAck.UniqIndex = randomvalAck.Index
-	packetAck.Creator = randomvalAck.Creator
-	packetAck.PublicKey = randomvalAck.Pubk
-	packetAck.Message = randomvalAck.Message
-	packetAck.Vrv = randomvalAck.Vrv
-	packetAck.Proof = randomvalAck.Proof
+	// packetAck.Creator = randomvalAck.Creator
+	// packetAck.PublicKey = randomvalAck.Pubk
+	// packetAck.Message = randomvalAck.Message
+	// packetAck.Vrv = randomvalAck.Vrv
+	// packetAck.Proof = randomvalAck.Proof
 	packetAck.Finalvrvfl = strconv.FormatFloat(randomvalAck.Finalvrvfl, 'f', -1, 64)
-	packetAck.Multiplier = strconv.FormatUint(randomvalAck.Multiplier, 10)
-	packetAck.Parsedvrv = strconv.FormatUint(randomvalAck.Parsedvrv, 10)
-	packetAck.Finalvrv = strconv.FormatUint(randomvalAck.Finalvrv, 10)
-	packetAck.Floatvrv = strconv.FormatFloat(randomvalAck.Floatvrv, 'f', -1, 64)
+	// packetAck.Multiplier = strconv.FormatUint(randomvalAck.Multiplier, 10)
+	// packetAck.Parsedvrv = strconv.FormatUint(randomvalAck.Parsedvrv, 10)
+	// packetAck.Finalvrv = strconv.FormatUint(randomvalAck.Finalvrv, 10)
+	// packetAck.Floatvrv = strconv.FormatFloat(randomvalAck.Floatvrv, 'f', -1, 64)
 
-	k.SetRandomval(ctx, randomvalAck)
-	k.SetUserval(ctx, newUserVal)
+	// k.SetRandomval(ctx, randomvalAck)
+	// k.SetUserval(ctx, newUserVal)
 	return packetAck, err
 }
 
