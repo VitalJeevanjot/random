@@ -25,15 +25,7 @@ message ReqRandomvalPacketData {
 // ReqRandomvalPacketAck defines a struct for the packet acknowledgment
 message ReqRandomvalPacketAck {
 	string creator = 1;
-  string publicKey = 2;
-  string message = 3;
-  string vrv = 4;
-  string proof = 5;
-  string finalvrvfl = 6;
-  string multiplier = 7;
-  string parsedvrv = 8;
-  string finalvrv = 9;
-  string floatvrv = 10;
-  string uniqIndex = 11;
+  string finalvrvfl = 2;
+  string uniqIndex = 3;
 }
 // this line is used by starport scaffolding # ibc/packet/proto/message

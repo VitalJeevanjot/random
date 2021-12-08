@@ -199,16 +199,8 @@ func (m *ReqRandomvalPacketData) GetCreator() string {
 // ReqRandomvalPacketAck defines a struct for the packet acknowledgment
 type ReqRandomvalPacketAck struct {
 	Creator    string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	PublicKey  string `protobuf:"bytes,2,opt,name=publicKey,proto3" json:"publicKey,omitempty"`
-	Message    string `protobuf:"bytes,3,opt,name=message,proto3" json:"message,omitempty"`
-	Vrv        string `protobuf:"bytes,4,opt,name=vrv,proto3" json:"vrv,omitempty"`
-	Proof      string `protobuf:"bytes,5,opt,name=proof,proto3" json:"proof,omitempty"`
-	Finalvrvfl string `protobuf:"bytes,6,opt,name=finalvrvfl,proto3" json:"finalvrvfl,omitempty"`
-	Multiplier string `protobuf:"bytes,7,opt,name=multiplier,proto3" json:"multiplier,omitempty"`
-	Parsedvrv  string `protobuf:"bytes,8,opt,name=parsedvrv,proto3" json:"parsedvrv,omitempty"`
-	Finalvrv   string `protobuf:"bytes,9,opt,name=finalvrv,proto3" json:"finalvrv,omitempty"`
-	Floatvrv   string `protobuf:"bytes,10,opt,name=floatvrv,proto3" json:"floatvrv,omitempty"`
-	UniqIndex  string `protobuf:"bytes,11,opt,name=uniqIndex,proto3" json:"uniqIndex,omitempty"`
+	Finalvrvfl string `protobuf:"bytes,2,opt,name=finalvrvfl,proto3" json:"finalvrvfl,omitempty"`
+	UniqIndex  string `protobuf:"bytes,3,opt,name=uniqIndex,proto3" json:"uniqIndex,omitempty"`
 }
 
 func (m *ReqRandomvalPacketAck) Reset()         { *m = ReqRandomvalPacketAck{} }
@@ -251,65 +243,9 @@ func (m *ReqRandomvalPacketAck) GetCreator() string {
 	return ""
 }
 
-func (m *ReqRandomvalPacketAck) GetPublicKey() string {
-	if m != nil {
-		return m.PublicKey
-	}
-	return ""
-}
-
-func (m *ReqRandomvalPacketAck) GetMessage() string {
-	if m != nil {
-		return m.Message
-	}
-	return ""
-}
-
-func (m *ReqRandomvalPacketAck) GetVrv() string {
-	if m != nil {
-		return m.Vrv
-	}
-	return ""
-}
-
-func (m *ReqRandomvalPacketAck) GetProof() string {
-	if m != nil {
-		return m.Proof
-	}
-	return ""
-}
-
 func (m *ReqRandomvalPacketAck) GetFinalvrvfl() string {
 	if m != nil {
 		return m.Finalvrvfl
-	}
-	return ""
-}
-
-func (m *ReqRandomvalPacketAck) GetMultiplier() string {
-	if m != nil {
-		return m.Multiplier
-	}
-	return ""
-}
-
-func (m *ReqRandomvalPacketAck) GetParsedvrv() string {
-	if m != nil {
-		return m.Parsedvrv
-	}
-	return ""
-}
-
-func (m *ReqRandomvalPacketAck) GetFinalvrv() string {
-	if m != nil {
-		return m.Finalvrv
-	}
-	return ""
-}
-
-func (m *ReqRandomvalPacketAck) GetFloatvrv() string {
-	if m != nil {
-		return m.Floatvrv
 	}
 	return ""
 }
@@ -331,32 +267,26 @@ func init() {
 func init() { proto.RegisterFile("random/packet.proto", fileDescriptor_1a9578e54d2fb4f9) }
 
 var fileDescriptor_1a9578e54d2fb4f9 = []byte{
-	// 388 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x74, 0x92, 0xbf, 0x8e, 0xda, 0x40,
-	0x10, 0xc6, 0x6d, 0x08, 0xc6, 0x1e, 0x1a, 0xb4, 0x49, 0xd0, 0x2a, 0x8a, 0x56, 0x91, 0xab, 0xa4,
-	0x31, 0x52, 0xd2, 0xa4, 0x0d, 0x49, 0x91, 0x28, 0x52, 0x14, 0xb9, 0x4c, 0x95, 0xc5, 0x2c, 0x9c,
-	0x85, 0xed, 0x35, 0xeb, 0xb5, 0x05, 0x6f, 0x71, 0x8f, 0x73, 0x2f, 0x70, 0xd2, 0x95, 0x94, 0x57,
-	0x9e, 0xe0, 0x45, 0x4e, 0xfb, 0xc7, 0xc0, 0x1d, 0x5c, 0xe5, 0x99, 0x6f, 0xf6, 0xfb, 0x79, 0x3e,
-	0x69, 0xe0, 0xb5, 0xa0, 0xc5, 0x8c, 0xe7, 0xe3, 0x92, 0x26, 0x4b, 0x26, 0xa3, 0x52, 0x70, 0xc9,
-	0xd1, 0x68, 0xc1, 0x8a, 0x94, 0x35, 0x5c, 0x46, 0x66, 0x6a, 0x3f, 0xe1, 0x8d, 0x0b, 0xc3, 0x58,
-	0x97, 0x7f, 0xf5, 0xf3, 0x1f, 0x54, 0x52, 0xf4, 0x15, 0xbc, 0x82, 0xab, 0x0a, 0xbb, 0x1f, 0xdc,
-	0x8f, 0x83, 0xcf, 0x24, 0xba, 0xec, 0x8e, 0xfe, 0xe8, 0x57, 0x3f, 0x9d, 0xd8, 0xbe, 0x47, 0xff,
-	0x01, 0x09, 0xb6, 0x32, 0xc0, 0x86, 0x66, 0x86, 0x89, 0x3b, 0x9a, 0x12, 0xbd, 0x44, 0x89, 0xcf,
-	0x1c, 0x96, 0x7a, 0x81, 0x35, 0xf1, 0xc1, 0x33, 0xc1, 0x42, 0x1f, 0x3c, 0xf3, 0xff, 0x30, 0x86,
-	0xd1, 0x65, 0x06, 0x22, 0x00, 0x79, 0x9d, 0xc9, 0xb4, 0xcc, 0x52, 0x26, 0x74, 0x9a, 0x20, 0x3e,
-	0x51, 0x10, 0x86, 0x7e, 0x22, 0x18, 0x95, 0x5c, 0xe8, 0x25, 0x83, 0xb8, 0x6d, 0xc3, 0xdb, 0x0e,
-	0xbc, 0x3d, 0x87, 0x7e, 0x4b, 0x96, 0xa7, 0x1e, 0xf7, 0x89, 0x07, 0xbd, 0x87, 0xa0, 0xac, 0xa7,
-	0x59, 0x9a, 0xfc, 0x66, 0x1b, 0xcb, 0x3b, 0x0a, 0xca, 0x97, 0xb3, 0xaa, 0xa2, 0x0b, 0x86, 0xbb,
-	0xc6, 0x67, 0x5b, 0x34, 0x84, 0x6e, 0x23, 0x1a, 0xfc, 0x4a, 0xab, 0xaa, 0x44, 0x6f, 0xa0, 0x57,
-	0x0a, 0xce, 0xe7, 0xb8, 0xa7, 0x35, 0xd3, 0xa8, 0x34, 0xf3, 0xb4, 0xa0, 0x59, 0x23, 0x9a, 0x79,
-	0x86, 0x3d, 0x93, 0xe6, 0xa8, 0x3c, 0x4b, 0xdb, 0x3f, 0x4b, 0xab, 0xf6, 0xa3, 0xa2, 0x62, 0x33,
-	0xf5, 0x37, 0xdf, 0xee, 0xd7, 0x0a, 0xe8, 0x1d, 0xf8, 0x2d, 0x0b, 0x07, 0x7a, 0x78, 0xe8, 0xf5,
-	0x2c, 0xe3, 0x54, 0xaa, 0x19, 0xd8, 0x99, 0xed, 0x15, 0xb5, 0x2e, 0xd2, 0xd5, 0xaf, 0x62, 0xc6,
-	0xd6, 0x78, 0x60, 0xa8, 0x07, 0x61, 0xf2, 0xfd, 0x6e, 0x47, 0xdc, 0xed, 0x8e, 0xb8, 0x0f, 0x3b,
-	0xe2, 0x5e, 0xef, 0x89, 0xb3, 0xdd, 0x13, 0xe7, 0x7e, 0x4f, 0x9c, 0x7f, 0x9f, 0x16, 0xa9, 0xbc,
-	0xaa, 0xa7, 0x51, 0xc2, 0xf3, 0x71, 0x7b, 0x19, 0x63, 0x7b, 0xbb, 0xeb, 0xb6, 0x90, 0x9b, 0x92,
-	0x55, 0x53, 0x4f, 0x1f, 0xf1, 0x97, 0xc7, 0x00, 0x00, 0x00, 0xff, 0xff, 0xa4, 0x55, 0x3f, 0xaa,
-	0xdb, 0x02, 0x00, 0x00,
+	// 297 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x2e, 0x4a, 0xcc, 0x4b,
+	0xc9, 0xcf, 0xd5, 0x2f, 0x48, 0x4c, 0xce, 0x4e, 0x2d, 0xd1, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17,
+	0x12, 0x4b, 0x4f, 0xcd, 0xcb, 0x4c, 0x2d, 0xcb, 0x2f, 0xd1, 0x83, 0xc8, 0x42, 0x29, 0xa5, 0x1d,
+	0x8c, 0x5c, 0x02, 0x41, 0x60, 0x66, 0x00, 0x58, 0xb9, 0x4b, 0x62, 0x49, 0xa2, 0x90, 0x05, 0x17,
+	0x5b, 0x5e, 0x3e, 0x88, 0x25, 0xc1, 0xa8, 0xc0, 0xa8, 0xc1, 0x6d, 0x24, 0xa7, 0x87, 0x5d, 0xb7,
+	0x9e, 0x1f, 0x58, 0x95, 0x07, 0x43, 0x10, 0x54, 0xbd, 0x50, 0x02, 0x97, 0x50, 0x51, 0x6a, 0x21,
+	0xc4, 0xc0, 0xb2, 0xc4, 0x1c, 0x88, 0x99, 0x12, 0x4c, 0x60, 0x53, 0xf4, 0x70, 0x99, 0x12, 0x84,
+	0xa1, 0x03, 0x6a, 0x2a, 0x16, 0xb3, 0x9c, 0x38, 0xb8, 0xd8, 0x20, 0x1e, 0x53, 0xe2, 0xe0, 0x62,
+	0x83, 0xd8, 0xaf, 0x14, 0xc4, 0x25, 0x86, 0xdd, 0x0c, 0x21, 0x39, 0x2e, 0xae, 0xdc, 0xd2, 0x9c,
+	0x92, 0xcc, 0x82, 0x9c, 0xcc, 0xd4, 0x22, 0xb0, 0x6f, 0x38, 0x83, 0x90, 0x44, 0x84, 0x24, 0xb8,
+	0xd8, 0x93, 0x8b, 0x52, 0x13, 0x4b, 0xf2, 0x8b, 0xc0, 0x8e, 0xe4, 0x0c, 0x82, 0x71, 0x95, 0xf2,
+	0xb9, 0x44, 0x31, 0xcd, 0x74, 0x4c, 0xce, 0x46, 0xd6, 0xc2, 0x88, 0xa2, 0x05, 0x64, 0x59, 0x5a,
+	0x66, 0x5e, 0x62, 0x4e, 0x59, 0x51, 0x59, 0x5a, 0x0e, 0xd4, 0x3c, 0x24, 0x11, 0x21, 0x19, 0x2e,
+	0xce, 0xd2, 0xbc, 0xcc, 0x42, 0xcf, 0xbc, 0x94, 0xd4, 0x0a, 0x09, 0x66, 0xb0, 0x34, 0x42, 0xc0,
+	0xc9, 0xf9, 0xc4, 0x23, 0x39, 0xc6, 0x0b, 0x8f, 0xe4, 0x18, 0x1f, 0x3c, 0x92, 0x63, 0x9c, 0xf0,
+	0x58, 0x8e, 0xe1, 0xc2, 0x63, 0x39, 0x86, 0x1b, 0x8f, 0xe5, 0x18, 0xa2, 0x34, 0xd3, 0x33, 0x4b,
+	0x32, 0x4a, 0x93, 0xf4, 0x92, 0xf3, 0x73, 0xf5, 0x61, 0x41, 0xa8, 0x0f, 0x8d, 0xe4, 0x0a, 0x18,
+	0xa3, 0xa4, 0xb2, 0x20, 0xb5, 0x38, 0x89, 0x0d, 0x1c, 0xdb, 0xc6, 0x80, 0x00, 0x00, 0x00, 0xff,
+	0xff, 0x8f, 0xe1, 0x29, 0x38, 0x04, 0x02, 0x00, 0x00,
 }
 
 func (m *RandomPacketData) Marshal() (dAtA []byte, err error) {
@@ -518,68 +448,12 @@ func (m *ReqRandomvalPacketAck) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		copy(dAtA[i:], m.UniqIndex)
 		i = encodeVarintPacket(dAtA, i, uint64(len(m.UniqIndex)))
 		i--
-		dAtA[i] = 0x5a
-	}
-	if len(m.Floatvrv) > 0 {
-		i -= len(m.Floatvrv)
-		copy(dAtA[i:], m.Floatvrv)
-		i = encodeVarintPacket(dAtA, i, uint64(len(m.Floatvrv)))
-		i--
-		dAtA[i] = 0x52
-	}
-	if len(m.Finalvrv) > 0 {
-		i -= len(m.Finalvrv)
-		copy(dAtA[i:], m.Finalvrv)
-		i = encodeVarintPacket(dAtA, i, uint64(len(m.Finalvrv)))
-		i--
-		dAtA[i] = 0x4a
-	}
-	if len(m.Parsedvrv) > 0 {
-		i -= len(m.Parsedvrv)
-		copy(dAtA[i:], m.Parsedvrv)
-		i = encodeVarintPacket(dAtA, i, uint64(len(m.Parsedvrv)))
-		i--
-		dAtA[i] = 0x42
-	}
-	if len(m.Multiplier) > 0 {
-		i -= len(m.Multiplier)
-		copy(dAtA[i:], m.Multiplier)
-		i = encodeVarintPacket(dAtA, i, uint64(len(m.Multiplier)))
-		i--
-		dAtA[i] = 0x3a
+		dAtA[i] = 0x1a
 	}
 	if len(m.Finalvrvfl) > 0 {
 		i -= len(m.Finalvrvfl)
 		copy(dAtA[i:], m.Finalvrvfl)
 		i = encodeVarintPacket(dAtA, i, uint64(len(m.Finalvrvfl)))
-		i--
-		dAtA[i] = 0x32
-	}
-	if len(m.Proof) > 0 {
-		i -= len(m.Proof)
-		copy(dAtA[i:], m.Proof)
-		i = encodeVarintPacket(dAtA, i, uint64(len(m.Proof)))
-		i--
-		dAtA[i] = 0x2a
-	}
-	if len(m.Vrv) > 0 {
-		i -= len(m.Vrv)
-		copy(dAtA[i:], m.Vrv)
-		i = encodeVarintPacket(dAtA, i, uint64(len(m.Vrv)))
-		i--
-		dAtA[i] = 0x22
-	}
-	if len(m.Message) > 0 {
-		i -= len(m.Message)
-		copy(dAtA[i:], m.Message)
-		i = encodeVarintPacket(dAtA, i, uint64(len(m.Message)))
-		i--
-		dAtA[i] = 0x1a
-	}
-	if len(m.PublicKey) > 0 {
-		i -= len(m.PublicKey)
-		copy(dAtA[i:], m.PublicKey)
-		i = encodeVarintPacket(dAtA, i, uint64(len(m.PublicKey)))
 		i--
 		dAtA[i] = 0x12
 	}
@@ -676,39 +550,7 @@ func (m *ReqRandomvalPacketAck) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovPacket(uint64(l))
 	}
-	l = len(m.PublicKey)
-	if l > 0 {
-		n += 1 + l + sovPacket(uint64(l))
-	}
-	l = len(m.Message)
-	if l > 0 {
-		n += 1 + l + sovPacket(uint64(l))
-	}
-	l = len(m.Vrv)
-	if l > 0 {
-		n += 1 + l + sovPacket(uint64(l))
-	}
-	l = len(m.Proof)
-	if l > 0 {
-		n += 1 + l + sovPacket(uint64(l))
-	}
 	l = len(m.Finalvrvfl)
-	if l > 0 {
-		n += 1 + l + sovPacket(uint64(l))
-	}
-	l = len(m.Multiplier)
-	if l > 0 {
-		n += 1 + l + sovPacket(uint64(l))
-	}
-	l = len(m.Parsedvrv)
-	if l > 0 {
-		n += 1 + l + sovPacket(uint64(l))
-	}
-	l = len(m.Finalvrv)
-	if l > 0 {
-		n += 1 + l + sovPacket(uint64(l))
-	}
-	l = len(m.Floatvrv)
 	if l > 0 {
 		n += 1 + l + sovPacket(uint64(l))
 	}
@@ -1072,134 +914,6 @@ func (m *ReqRandomvalPacketAck) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field PublicKey", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowPacket
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthPacket
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthPacket
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.PublicKey = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 3:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Message", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowPacket
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthPacket
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthPacket
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Message = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 4:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Vrv", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowPacket
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthPacket
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthPacket
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Vrv = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 5:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Proof", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowPacket
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthPacket
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthPacket
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Proof = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 6:
-			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Finalvrvfl", wireType)
 			}
 			var stringLen uint64
@@ -1230,135 +944,7 @@ func (m *ReqRandomvalPacketAck) Unmarshal(dAtA []byte) error {
 			}
 			m.Finalvrvfl = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 7:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Multiplier", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowPacket
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthPacket
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthPacket
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Multiplier = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 8:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Parsedvrv", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowPacket
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthPacket
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthPacket
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Parsedvrv = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 9:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Finalvrv", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowPacket
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthPacket
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthPacket
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Finalvrv = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 10:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Floatvrv", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowPacket
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthPacket
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthPacket
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Floatvrv = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 11:
+		case 3:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field UniqIndex", wireType)
 			}
