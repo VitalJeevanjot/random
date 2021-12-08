@@ -12,9 +12,9 @@ import (
 
 type (
 	Keeper struct {
-		cdc      codec.BinaryCodec
-		storeKey sdk.StoreKey
-		memKey   sdk.StoreKey
+		cdc           codec.BinaryCodec
+		storeKey      sdk.StoreKey
+		memKey        sdk.StoreKey
 		channelKeeper types.ChannelKeeper
 		portKeeper    types.PortKeeper
 		scopedKeeper  types.ScopedKeeper
@@ -31,9 +31,9 @@ func NewKeeper(
 
 ) *Keeper {
 	return &Keeper{
-		cdc:      cdc,
-		storeKey: storeKey,
-		memKey:   memKey,
+		cdc:           cdc,
+		storeKey:      storeKey,
+		memKey:        memKey,
 		channelKeeper: channelKeeper,
 		portKeeper:    portKeeper,
 		scopedKeeper:  scopedKeeper,

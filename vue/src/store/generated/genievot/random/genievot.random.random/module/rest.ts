@@ -14,9 +14,10 @@ export interface ProtobufAny {
 }
 
 export interface RandomMsgCreateRandomResponse {
-  /** @format uint64 */
   id?: string;
 }
+
+export type RandomMsgSendReqRandomvalResponse = object;
 
 export interface RandomQueryAllRandomvalResponse {
   randomval?: RandomRandomval[];

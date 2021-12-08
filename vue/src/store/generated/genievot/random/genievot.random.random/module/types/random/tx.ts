@@ -6,13 +6,22 @@ export const protobufPackage = "genievot.random.random";
 
 export interface MsgCreateRandom {
   creator: string;
-  /** int32 count = 3; // -1 will be last (recently created) and 0 is first */
   multiplier: number;
 }
 
 export interface MsgCreateRandomResponse {
-  id: number;
+  id: string;
 }
+
+export interface MsgSendReqRandomval {
+  creator: string;
+  port: string;
+  channelID: string;
+  timeoutTimestamp: number;
+  multiplier: string;
+}
+
+export interface MsgSendReqRandomvalResponse {}
 
 const baseMsgCreateRandom: object = { creator: "", multiplier: 0 };
 
@@ -86,15 +95,15 @@ export const MsgCreateRandom = {
   },
 };
 
-const baseMsgCreateRandomResponse: object = { id: 0 };
+const baseMsgCreateRandomResponse: object = { id: "" };
 
 export const MsgCreateRandomResponse = {
   encode(
     message: MsgCreateRandomResponse,
     writer: Writer = Writer.create()
   ): Writer {
-    if (message.id !== 0) {
-      writer.uint32(8).uint64(message.id);
+    if (message.id !== "") {
+      writer.uint32(10).string(message.id);
     }
     return writer;
   },
@@ -109,7 +118,7 @@ export const MsgCreateRandomResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.id = longToNumber(reader.uint64() as Long);
+          message.id = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -124,9 +133,9 @@ export const MsgCreateRandomResponse = {
       ...baseMsgCreateRandomResponse,
     } as MsgCreateRandomResponse;
     if (object.id !== undefined && object.id !== null) {
-      message.id = Number(object.id);
+      message.id = String(object.id);
     } else {
-      message.id = 0;
+      message.id = "";
     }
     return message;
   },
@@ -146,16 +155,210 @@ export const MsgCreateRandomResponse = {
     if (object.id !== undefined && object.id !== null) {
       message.id = object.id;
     } else {
-      message.id = 0;
+      message.id = "";
     }
+    return message;
+  },
+};
+
+const baseMsgSendReqRandomval: object = {
+  creator: "",
+  port: "",
+  channelID: "",
+  timeoutTimestamp: 0,
+  multiplier: "",
+};
+
+export const MsgSendReqRandomval = {
+  encode(
+    message: MsgSendReqRandomval,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.port !== "") {
+      writer.uint32(18).string(message.port);
+    }
+    if (message.channelID !== "") {
+      writer.uint32(26).string(message.channelID);
+    }
+    if (message.timeoutTimestamp !== 0) {
+      writer.uint32(32).uint64(message.timeoutTimestamp);
+    }
+    if (message.multiplier !== "") {
+      writer.uint32(42).string(message.multiplier);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgSendReqRandomval {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgSendReqRandomval } as MsgSendReqRandomval;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.port = reader.string();
+          break;
+        case 3:
+          message.channelID = reader.string();
+          break;
+        case 4:
+          message.timeoutTimestamp = longToNumber(reader.uint64() as Long);
+          break;
+        case 5:
+          message.multiplier = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgSendReqRandomval {
+    const message = { ...baseMsgSendReqRandomval } as MsgSendReqRandomval;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.port !== undefined && object.port !== null) {
+      message.port = String(object.port);
+    } else {
+      message.port = "";
+    }
+    if (object.channelID !== undefined && object.channelID !== null) {
+      message.channelID = String(object.channelID);
+    } else {
+      message.channelID = "";
+    }
+    if (
+      object.timeoutTimestamp !== undefined &&
+      object.timeoutTimestamp !== null
+    ) {
+      message.timeoutTimestamp = Number(object.timeoutTimestamp);
+    } else {
+      message.timeoutTimestamp = 0;
+    }
+    if (object.multiplier !== undefined && object.multiplier !== null) {
+      message.multiplier = String(object.multiplier);
+    } else {
+      message.multiplier = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgSendReqRandomval): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.port !== undefined && (obj.port = message.port);
+    message.channelID !== undefined && (obj.channelID = message.channelID);
+    message.timeoutTimestamp !== undefined &&
+      (obj.timeoutTimestamp = message.timeoutTimestamp);
+    message.multiplier !== undefined && (obj.multiplier = message.multiplier);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgSendReqRandomval>): MsgSendReqRandomval {
+    const message = { ...baseMsgSendReqRandomval } as MsgSendReqRandomval;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.port !== undefined && object.port !== null) {
+      message.port = object.port;
+    } else {
+      message.port = "";
+    }
+    if (object.channelID !== undefined && object.channelID !== null) {
+      message.channelID = object.channelID;
+    } else {
+      message.channelID = "";
+    }
+    if (
+      object.timeoutTimestamp !== undefined &&
+      object.timeoutTimestamp !== null
+    ) {
+      message.timeoutTimestamp = object.timeoutTimestamp;
+    } else {
+      message.timeoutTimestamp = 0;
+    }
+    if (object.multiplier !== undefined && object.multiplier !== null) {
+      message.multiplier = object.multiplier;
+    } else {
+      message.multiplier = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgSendReqRandomvalResponse: object = {};
+
+export const MsgSendReqRandomvalResponse = {
+  encode(
+    _: MsgSendReqRandomvalResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgSendReqRandomvalResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgSendReqRandomvalResponse,
+    } as MsgSendReqRandomvalResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgSendReqRandomvalResponse {
+    const message = {
+      ...baseMsgSendReqRandomvalResponse,
+    } as MsgSendReqRandomvalResponse;
+    return message;
+  },
+
+  toJSON(_: MsgSendReqRandomvalResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgSendReqRandomvalResponse>
+  ): MsgSendReqRandomvalResponse {
+    const message = {
+      ...baseMsgSendReqRandomvalResponse,
+    } as MsgSendReqRandomvalResponse;
     return message;
   },
 };
 
 /** Msg defines the Msg service. */
 export interface Msg {
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   CreateRandom(request: MsgCreateRandom): Promise<MsgCreateRandomResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  SendReqRandomval(
+    request: MsgSendReqRandomval
+  ): Promise<MsgSendReqRandomvalResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -172,6 +375,20 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgCreateRandomResponse.decode(new Reader(data))
+    );
+  }
+
+  SendReqRandomval(
+    request: MsgSendReqRandomval
+  ): Promise<MsgSendReqRandomvalResponse> {
+    const data = MsgSendReqRandomval.encode(request).finish();
+    const promise = this.rpc.request(
+      "genievot.random.random.Msg",
+      "SendReqRandomval",
+      data
+    );
+    return promise.then((data) =>
+      MsgSendReqRandomvalResponse.decode(new Reader(data))
     );
   }
 }

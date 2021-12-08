@@ -2,9 +2,9 @@ export interface ProtobufAny {
     "@type"?: string;
 }
 export interface RandomMsgCreateRandomResponse {
-    /** @format uint64 */
     id?: string;
 }
+export declare type RandomMsgSendReqRandomvalResponse = object;
 export interface RandomQueryAllRandomvalResponse {
     randomval?: RandomRandomval[];
     /**

@@ -210,8 +210,8 @@ type App struct {
 	ScopedIBCKeeper      capabilitykeeper.ScopedKeeper
 	ScopedTransferKeeper capabilitykeeper.ScopedKeeper
 
-	RandomKeeper randommodulekeeper.Keeper
-	ScopedRandomKeeper   capabilitykeeper.ScopedKeeper
+	RandomKeeper       randommodulekeeper.Keeper
+	ScopedRandomKeeper capabilitykeeper.ScopedKeeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// the module manager
@@ -343,7 +343,7 @@ func New(
 		appCodec, keys[govtypes.StoreKey], app.GetSubspace(govtypes.ModuleName), app.AccountKeeper, app.BankKeeper,
 		&stakingKeeper, govRouter,
 	)
-	
+
 	scopedRandomKeeper := app.CapabilityKeeper.ScopeToModule(randommoduletypes.ModuleName)
 	app.ScopedRandomKeeper = scopedRandomKeeper
 	app.RandomKeeper = *randommodulekeeper.NewKeeper(

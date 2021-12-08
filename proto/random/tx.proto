@@ -8,17 +8,27 @@ option go_package = "github.com/genievot/random/x/random/types";
 // Msg defines the Msg service.
 service Msg {
       rpc CreateRandom(MsgCreateRandom) returns (MsgCreateRandomResponse);
+  rpc SendReqRandomval(MsgSendReqRandomval) returns (MsgSendReqRandomvalResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
 message MsgCreateRandom {
   string creator = 1;
   uint64 multiplier = 2;
-  // int32 count = 3; // -1 will be last (recently created) and 0 is first
 }
 
 message MsgCreateRandomResponse {
-  uint64 id = 1;
+  string id = 1;
 }
 
+message MsgSendReqRandomval {
+  string creator = 1;
+  string port = 2;
+  string channelID = 3;
+  uint64 timeoutTimestamp = 4;
+  string multiplier = 5;
+}
+
+message MsgSendReqRandomvalResponse {
+}
 // this line is used by starport scaffolding # proto/tx/message

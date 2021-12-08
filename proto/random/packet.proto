@@ -9,10 +9,30 @@ message RandomPacketData {
     oneof packet {
         NoData noData = 1;
         // this line is used by starport scaffolding # ibc/packet/proto/field
+				ReqRandomvalPacketData reqRandomvalPacket = 2; // this line is used by starport scaffolding # ibc/packet/proto/field/number
     }
 }
 
 message NoData {
 }
 
+// ReqRandomvalPacketData defines a struct for the packet payload
+message ReqRandomvalPacketData {
+  string multiplier = 1;
+  string creator = 2;
+}
+
+// ReqRandomvalPacketAck defines a struct for the packet acknowledgment
+message ReqRandomvalPacketAck {
+	string creator = 1;
+  string publicKey = 2;
+  string message = 3;
+  string vrv = 4;
+  string proof = 5;
+  string finalvrvfl = 6;
+  string multiplier = 7;
+  string parsedvrv = 8;
+  string finalvrv = 9;
+  string floatvrv = 10;
+}
 // this line is used by starport scaffolding # ibc/packet/proto/message

@@ -3,9 +3,11 @@ import { txClient, queryClient, MissingWalletError } from './module';
 import { SpVuexError } from '@starport/vuex';
 import { RandomPacketData } from "./module/types/random/packet";
 import { NoData } from "./module/types/random/packet";
+import { ReqRandomvalPacketData } from "./module/types/random/packet";
+import { ReqRandomvalPacketAck } from "./module/types/random/packet";
 import { Randomval } from "./module/types/random/randomval";
 import { Userval } from "./module/types/random/userval";
-export { RandomPacketData, NoData, Randomval, Userval };
+export { RandomPacketData, NoData, ReqRandomvalPacketData, ReqRandomvalPacketAck, Randomval, Userval };
 async function initTxClient(vuexGetters) {
     return await txClient(vuexGetters['common/wallet/signer'], {
         addr: vuexGetters['common/env/apiTendermint']
@@ -47,6 +49,8 @@ const getDefaultState = () => {
         _Structure: {
             RandomPacketData: getStructure(RandomPacketData.fromPartial({})),
             NoData: getStructure(NoData.fromPartial({})),
+            ReqRandomvalPacketData: getStructure(ReqRandomvalPacketData.fromPartial({})),
+            ReqRandomvalPacketAck: getStructure(ReqRandomvalPacketAck.fromPartial({})),
             Randomval: getStructure(Randomval.fromPartial({})),
             Userval: getStructure(Userval.fromPartial({})),
         },
@@ -209,6 +213,23 @@ export default {
                 throw new SpVuexError('QueryClient:QueryVerifyValues', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
+        async sendMsgSendReqRandomval({ rootGetters }, { value, fee = [], memo = '' }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgSendReqRandomval(value);
+                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
+                        gas: "200000" }, memo });
+                return result;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgSendReqRandomval:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgSendReqRandomval:Send', 'Could not broadcast Tx: ' + e.message);
+                }
+            }
+        },
         async sendMsgCreateRandom({ rootGetters }, { value, fee = [], memo = '' }) {
             try {
                 const txClient = await initTxClient(rootGetters);
@@ -223,6 +244,21 @@ export default {
                 }
                 else {
                     throw new SpVuexError('TxClient:MsgCreateRandom:Send', 'Could not broadcast Tx: ' + e.message);
+                }
+            }
+        },
+        async MsgSendReqRandomval({ rootGetters }, { value }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgSendReqRandomval(value);
+                return msg;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgSendReqRandomval:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgSendReqRandomval:Create', 'Could not create message: ' + e.message);
                 }
             }
         },

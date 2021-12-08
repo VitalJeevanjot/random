@@ -20080,7 +20080,8 @@ definitions:
     properties:
       id:
         type: string
-        format: uint64
+  genievot.random.random.MsgSendReqRandomvalResponse:
+    type: object
   genievot.random.random.QueryAllRandomvalResponse:
     type: object
     properties:

@@ -2,11 +2,19 @@ import { Reader, Writer } from "protobufjs/minimal";
 export declare const protobufPackage = "genievot.random.random";
 export interface MsgCreateRandom {
     creator: string;
-    /** int32 count = 3; // -1 will be last (recently created) and 0 is first */
     multiplier: number;
 }
 export interface MsgCreateRandomResponse {
-    id: number;
+    id: string;
+}
+export interface MsgSendReqRandomval {
+    creator: string;
+    port: string;
+    channelID: string;
+    timeoutTimestamp: number;
+    multiplier: string;
+}
+export interface MsgSendReqRandomvalResponse {
 }
 export declare const MsgCreateRandom: {
     encode(message: MsgCreateRandom, writer?: Writer): Writer;
@@ -22,15 +30,31 @@ export declare const MsgCreateRandomResponse: {
     toJSON(message: MsgCreateRandomResponse): unknown;
     fromPartial(object: DeepPartial<MsgCreateRandomResponse>): MsgCreateRandomResponse;
 };
+export declare const MsgSendReqRandomval: {
+    encode(message: MsgSendReqRandomval, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgSendReqRandomval;
+    fromJSON(object: any): MsgSendReqRandomval;
+    toJSON(message: MsgSendReqRandomval): unknown;
+    fromPartial(object: DeepPartial<MsgSendReqRandomval>): MsgSendReqRandomval;
+};
+export declare const MsgSendReqRandomvalResponse: {
+    encode(_: MsgSendReqRandomvalResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgSendReqRandomvalResponse;
+    fromJSON(_: any): MsgSendReqRandomvalResponse;
+    toJSON(_: MsgSendReqRandomvalResponse): unknown;
+    fromPartial(_: DeepPartial<MsgSendReqRandomvalResponse>): MsgSendReqRandomvalResponse;
+};
 /** Msg defines the Msg service. */
 export interface Msg {
-    /** this line is used by starport scaffolding # proto/tx/rpc */
     CreateRandom(request: MsgCreateRandom): Promise<MsgCreateRandomResponse>;
+    /** this line is used by starport scaffolding # proto/tx/rpc */
+    SendReqRandomval(request: MsgSendReqRandomval): Promise<MsgSendReqRandomvalResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
     constructor(rpc: Rpc);
     CreateRandom(request: MsgCreateRandom): Promise<MsgCreateRandomResponse>;
+    SendReqRandomval(request: MsgSendReqRandomval): Promise<MsgSendReqRandomvalResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
