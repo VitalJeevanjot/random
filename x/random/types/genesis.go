@@ -11,9 +11,11 @@ const DefaultIndex uint64 = 1
 // DefaultGenesis returns the default Capability genesis state
 func DefaultGenesis() *GenesisState {
 	return &GenesisState{
-		RandomvalList: []Randomval{},
-		UservalList:   []Userval{},
-		PortId:        PortID,
+		RandomvalList:         []Randomval{},
+		UservalList:           []Userval{},
+		PortId:                PortID,
+		SentRandomvalList:     []SentRandomval{},
+		TimedoutRandomvalList: []TimedoutRandomval{},
 		// this line is used by starport scaffolding # genesis/types/default
 	}
 }
@@ -45,6 +47,30 @@ func (gs GenesisState) Validate() error {
 			return fmt.Errorf("duplicated index for userval")
 		}
 		uservalIndexMap[index] = struct{}{}
+	}
+	// Check for duplicated ID in sentRandomval
+	sentRandomvalIdMap := make(map[uint64]bool)
+	sentRandomvalCount := gs.GetSentRandomvalCount()
+	for _, elem := range gs.SentRandomvalList {
+		if _, ok := sentRandomvalIdMap[elem.Id]; ok {
+			return fmt.Errorf("duplicated id for sentRandomval")
+		}
+		if elem.Id >= sentRandomvalCount {
+			return fmt.Errorf("sentRandomval id should be lower or equal than the last id")
+		}
+		sentRandomvalIdMap[elem.Id] = true
+	}
+	// Check for duplicated ID in timedoutRandomval
+	timedoutRandomvalIdMap := make(map[uint64]bool)
+	timedoutRandomvalCount := gs.GetTimedoutRandomvalCount()
+	for _, elem := range gs.TimedoutRandomvalList {
+		if _, ok := timedoutRandomvalIdMap[elem.Id]; ok {
+			return fmt.Errorf("duplicated id for timedoutRandomval")
+		}
+		if elem.Id >= timedoutRandomvalCount {
+			return fmt.Errorf("timedoutRandomval id should be lower or equal than the last id")
+		}
+		timedoutRandomvalIdMap[elem.Id] = true
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 

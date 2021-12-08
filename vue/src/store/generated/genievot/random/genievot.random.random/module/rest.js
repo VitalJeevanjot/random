@@ -169,6 +169,64 @@ export class Api extends HttpClient {
          * No description
          *
          * @tags Query
+         * @name QuerySentRandomvalAll
+         * @summary Queries a list of sentRandomval items.
+         * @request GET:/genievot/random/random/sentRandomval
+         */
+        this.querySentRandomvalAll = (query, params = {}) => this.request({
+            path: `/genievot/random/random/sentRandomval`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QuerySentRandomval
+         * @summary Queries a sentRandomval by id.
+         * @request GET:/genievot/random/random/sentRandomval/{id}
+         */
+        this.querySentRandomval = (id, params = {}) => this.request({
+            path: `/genievot/random/random/sentRandomval/${id}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryTimedoutRandomvalAll
+         * @summary Queries a list of timedoutRandomval items.
+         * @request GET:/genievot/random/random/timedoutRandomval
+         */
+        this.queryTimedoutRandomvalAll = (query, params = {}) => this.request({
+            path: `/genievot/random/random/timedoutRandomval`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryTimedoutRandomval
+         * @summary Queries a timedoutRandomval by id.
+         * @request GET:/genievot/random/random/timedoutRandomval/{id}
+         */
+        this.queryTimedoutRandomval = (id, params = {}) => this.request({
+            path: `/genievot/random/random/timedoutRandomval/${id}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
          * @name QueryUservalAll
          * @summary Queries a list of userval items.
          * @request GET:/genievot/random/random/userval

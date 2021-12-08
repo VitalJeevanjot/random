@@ -11977,6 +11977,344 @@ paths:
           type: string
       tags:
         - Query
+  /genievot/random/random/sentRandomval:
+    get:
+      summary: Queries a list of sentRandomval items.
+      operationId: GenievotRandomRandomSentRandomvalAll
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              SentRandomval:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uint64
+                    userid:
+                      type: string
+                    vrv:
+                      type: string
+                    creator:
+                      type: string
+              pagination:
+                type: object
+                properties:
+                  nextKey:
+                    type: string
+                    format: byte
+                    title: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently
+                  total:
+                    type: string
+                    format: uint64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.countTotal
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
+  '/genievot/random/random/sentRandomval/{id}':
+    get:
+      summary: Queries a sentRandomval by id.
+      operationId: GenievotRandomRandomSentRandomval
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              SentRandomval:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uint64
+                  userid:
+                    type: string
+                  vrv:
+                    type: string
+                  creator:
+                    type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          format: uint64
+      tags:
+        - Query
+  /genievot/random/random/timedoutRandomval:
+    get:
+      summary: Queries a list of timedoutRandomval items.
+      operationId: GenievotRandomRandomTimedoutRandomvalAll
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              TimedoutRandomval:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uint64
+                    creator:
+                      type: string
+              pagination:
+                type: object
+                properties:
+                  nextKey:
+                    type: string
+                    format: byte
+                    title: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently
+                  total:
+                    type: string
+                    format: uint64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.countTotal
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
+  '/genievot/random/random/timedoutRandomval/{id}':
+    get:
+      summary: Queries a timedoutRandomval by id.
+      operationId: GenievotRandomRandomTimedoutRandomval
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              TimedoutRandomval:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uint64
+                  creator:
+                    type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          format: uint64
+      tags:
+        - Query
   /genievot/random/random/userval:
     get:
       summary: Queries a list of userval items.
@@ -20080,7 +20418,27 @@ definitions:
     properties:
       id:
         type: string
+  genievot.random.random.MsgCreateSentRandomvalResponse:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uint64
+  genievot.random.random.MsgCreateTimedoutRandomvalResponse:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uint64
+  genievot.random.random.MsgDeleteSentRandomvalResponse:
+    type: object
+  genievot.random.random.MsgDeleteTimedoutRandomvalResponse:
+    type: object
   genievot.random.random.MsgSendReqRandomvalResponse:
+    type: object
+  genievot.random.random.MsgUpdateSentRandomvalResponse:
+    type: object
+  genievot.random.random.MsgUpdateTimedoutRandomvalResponse:
     type: object
   genievot.random.random.QueryAllRandomvalResponse:
     type: object
@@ -20117,6 +20475,86 @@ definitions:
             finalvrvfl:
               type: number
               format: double
+      pagination:
+        type: object
+        properties:
+          nextKey:
+            type: string
+            format: byte
+            title: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
+  genievot.random.random.QueryAllSentRandomvalResponse:
+    type: object
+    properties:
+      SentRandomval:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uint64
+            userid:
+              type: string
+            vrv:
+              type: string
+            creator:
+              type: string
+      pagination:
+        type: object
+        properties:
+          nextKey:
+            type: string
+            format: byte
+            title: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
+  genievot.random.random.QueryAllTimedoutRandomvalResponse:
+    type: object
+    properties:
+      TimedoutRandomval:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uint64
+            creator:
+              type: string
       pagination:
         type: object
         properties:
@@ -20215,6 +20653,32 @@ definitions:
           finalvrvfl:
             type: number
             format: double
+  genievot.random.random.QueryGetSentRandomvalResponse:
+    type: object
+    properties:
+      SentRandomval:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uint64
+          userid:
+            type: string
+          vrv:
+            type: string
+          creator:
+            type: string
+  genievot.random.random.QueryGetTimedoutRandomvalResponse:
+    type: object
+    properties:
+      TimedoutRandomval:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uint64
+          creator:
+            type: string
   genievot.random.random.QueryGetUservalResponse:
     type: object
     properties:
@@ -20263,6 +20727,26 @@ definitions:
       finalvrvfl:
         type: number
         format: double
+  genievot.random.random.SentRandomval:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uint64
+      userid:
+        type: string
+      vrv:
+        type: string
+      creator:
+        type: string
+  genievot.random.random.TimedoutRandomval:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uint64
+      creator:
+        type: string
   genievot.random.random.Userval:
     type: object
     properties:

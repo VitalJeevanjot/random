@@ -1,0 +1,14 @@
+syntax = "proto3";
+package genievot.random.random;
+
+option go_package = "github.com/genievot/random/x/random/types";
+
+import "gogoproto/gogo.proto";
+
+
+message SentRandomval {
+  uint64 id = 1;
+  string userid = 2; 
+  string vrv = 3; 
+  string creator = 4;
+}

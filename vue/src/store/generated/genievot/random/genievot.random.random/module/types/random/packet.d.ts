@@ -24,6 +24,7 @@ export interface ReqRandomvalPacketAck {
     parsedvrv: string;
     finalvrv: string;
     floatvrv: string;
+    uniqIndex: string;
 }
 export declare const RandomPacketData: {
     encode(message: RandomPacketData, writer?: Writer): Writer;

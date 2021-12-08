@@ -9,6 +9,20 @@ import (
 // InitGenesis initializes the capability module's state from a provided genesis
 // state.
 func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) {
+	// Set all the sentRandomval
+	for _, elem := range genState.SentRandomvalList {
+		k.SetSentRandomval(ctx, elem)
+	}
+
+	// Set sentRandomval count
+	k.SetSentRandomvalCount(ctx, genState.SentRandomvalCount)
+	// Set all the timedoutRandomval
+	for _, elem := range genState.TimedoutRandomvalList {
+		k.SetTimedoutRandomval(ctx, elem)
+	}
+
+	// Set timedoutRandomval count
+	k.SetTimedoutRandomvalCount(ctx, genState.TimedoutRandomvalCount)
 	// this line is used by starport scaffolding # genesis/module/init
 	k.SetPort(ctx, genState.PortId)
 	// Only try to bind to port if it is not already bound, since we may already own
@@ -39,6 +53,10 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis.PortId = k.GetPort(ctx)
 	genesis.RandomvalList = k.GetAllRandomval(ctx)
 	genesis.UservalList = k.GetAllUserval(ctx)
+	genesis.SentRandomvalList = k.GetAllSentRandomval(ctx)
+	genesis.SentRandomvalCount = k.GetSentRandomvalCount(ctx)
+	genesis.TimedoutRandomvalList = k.GetAllTimedoutRandomval(ctx)
+	genesis.TimedoutRandomvalCount = k.GetTimedoutRandomvalCount(ctx)
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis

@@ -25,9 +25,19 @@ const (
 
 var (
 	// PortKey defines the key to store the port ID in store
-	PortKey = KeyPrefix("somemodi-port-")
+	PortKey = KeyPrefix("random-port-")
 )
 
 func KeyPrefix(p string) []byte {
 	return []byte(p)
 }
+
+const (
+	SentRandomvalKey      = "SentRandomval-value-"
+	SentRandomvalCountKey = "SentRandomval-count-"
+)
+
+const (
+	TimedoutRandomvalKey      = "TimedoutRandomval-value-"
+	TimedoutRandomvalCountKey = "TimedoutRandomval-count-"
+)

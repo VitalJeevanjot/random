@@ -2,9 +2,9 @@ package keeper
 
 import (
 	"context"
-	"strconv"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/genievot/random/x/random/types"
+	"strconv"
 )
 
 func (k msgServer) CreateRandom(goCtx context.Context, msg *types.MsgCreateRandom) (*types.MsgCreateRandomResponse, error) {

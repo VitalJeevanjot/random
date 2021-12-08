@@ -27,6 +27,24 @@ func TestGenesis(t *testing.T) {
 				Index: "1",
 			},
 		},
+		SentRandomvalList: []types.SentRandomval{
+			{
+				Id: 0,
+			},
+			{
+				Id: 1,
+			},
+		},
+		SentRandomvalCount: 2,
+		TimedoutRandomvalList: []types.TimedoutRandomval{
+			{
+				Id: 0,
+			},
+			{
+				Id: 1,
+			},
+		},
+		TimedoutRandomvalCount: 2,
 		// this line is used by starport scaffolding # genesis/test/state
 	}
 
@@ -39,5 +57,11 @@ func TestGenesis(t *testing.T) {
 	require.Subset(t, genesisState.RandomvalList, got.RandomvalList)
 	require.Len(t, got.UservalList, len(genesisState.UservalList))
 	require.Subset(t, genesisState.UservalList, got.UservalList)
+	require.Len(t, got.SentRandomvalList, len(genesisState.SentRandomvalList))
+	require.Subset(t, genesisState.SentRandomvalList, got.SentRandomvalList)
+	require.Equal(t, genesisState.SentRandomvalCount, got.SentRandomvalCount)
+	require.Len(t, got.TimedoutRandomvalList, len(genesisState.TimedoutRandomvalList))
+	require.Subset(t, genesisState.TimedoutRandomvalList, got.TimedoutRandomvalList)
+	require.Equal(t, genesisState.TimedoutRandomvalCount, got.TimedoutRandomvalCount)
 	// this line is used by starport scaffolding # genesis/test/assert
 }

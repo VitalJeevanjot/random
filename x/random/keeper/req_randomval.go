@@ -76,9 +76,10 @@ func (k Keeper) OnRecvReqRandomvalPacket(ctx sdk.Context, packet channeltypes.Pa
 
 	// TODO: packet reception logic
 
-	randomvalAck, newUserVal, err := k.CreateRandomNumber(ctx, packet.SourcePort+"-"+packet.SourceChannel+"-"+data.Creator, data.Multiplier)
+	randomvalAck, newUserVal, err := k.CreateRandomNumber(ctx, "IBC-"+packet.SourcePort+"-"+packet.SourceChannel+"-"+data.Creator, data.Multiplier)
 
-	packetAck.Creator = randomvalAck.Index
+	packetAck.UniqIndex = randomvalAck.Index
+	packetAck.Creator = randomvalAck.Creator
 	packetAck.PublicKey = randomvalAck.Pubk
 	packetAck.Message = randomvalAck.Message
 	packetAck.Vrv = randomvalAck.Vrv
@@ -114,6 +115,14 @@ func (k Keeper) OnAcknowledgementReqRandomvalPacket(ctx sdk.Context, packet chan
 		}
 
 		// TODO: successful acknowledgement logic
+		k.AppendSentRandomval(
+			ctx,
+			types.SentRandomval {
+				Creator: data.Creator,
+				Userid: packetAck.UniqIndex,
+				Vrv: packetAck.Finalvrvfl,
+			},
+		)
 
 		return nil
 	default:
@@ -126,6 +135,13 @@ func (k Keeper) OnAcknowledgementReqRandomvalPacket(ctx sdk.Context, packet chan
 func (k Keeper) OnTimeoutReqRandomvalPacket(ctx sdk.Context, packet channeltypes.Packet, data types.ReqRandomvalPacketData) error {
 
 	// TODO: packet timeout logic
+
+	k.AppendTimedoutRandomval(
+		ctx,
+		types.TimedoutRandomval {
+				Creator: data.Creator,
+		},
+	)
 
 	return nil
 }

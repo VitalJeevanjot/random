@@ -17,10 +17,58 @@ export interface RandomMsgCreateRandomResponse {
   id?: string;
 }
 
+export interface RandomMsgCreateSentRandomvalResponse {
+  /** @format uint64 */
+  id?: string;
+}
+
+export interface RandomMsgCreateTimedoutRandomvalResponse {
+  /** @format uint64 */
+  id?: string;
+}
+
+export type RandomMsgDeleteSentRandomvalResponse = object;
+
+export type RandomMsgDeleteTimedoutRandomvalResponse = object;
+
 export type RandomMsgSendReqRandomvalResponse = object;
+
+export type RandomMsgUpdateSentRandomvalResponse = object;
+
+export type RandomMsgUpdateTimedoutRandomvalResponse = object;
 
 export interface RandomQueryAllRandomvalResponse {
   randomval?: RandomRandomval[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
+export interface RandomQueryAllSentRandomvalResponse {
+  SentRandomval?: RandomSentRandomval[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
+export interface RandomQueryAllTimedoutRandomvalResponse {
+  TimedoutRandomval?: RandomTimedoutRandomval[];
 
   /**
    * PageResponse is to be embedded in gRPC response messages where the
@@ -53,6 +101,14 @@ export interface RandomQueryGetRandomvalResponse {
   randomval?: RandomRandomval;
 }
 
+export interface RandomQueryGetSentRandomvalResponse {
+  SentRandomval?: RandomSentRandomval;
+}
+
+export interface RandomQueryGetTimedoutRandomvalResponse {
+  TimedoutRandomval?: RandomTimedoutRandomval;
+}
+
 export interface RandomQueryGetUservalResponse {
   userval?: RandomUserval;
 }
@@ -83,6 +139,20 @@ export interface RandomRandomval {
 
   /** @format double */
   finalvrvfl?: number;
+}
+
+export interface RandomSentRandomval {
+  /** @format uint64 */
+  id?: string;
+  userid?: string;
+  vrv?: string;
+  creator?: string;
+}
+
+export interface RandomTimedoutRandomval {
+  /** @format uint64 */
+  id?: string;
+  creator?: string;
 }
 
 export interface RandomUserval {
@@ -392,6 +462,90 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryRandomval = (index: string, params: RequestParams = {}) =>
     this.request<RandomQueryGetRandomvalResponse, RpcStatus>({
       path: `/genievot/random/random/randomval/${index}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QuerySentRandomvalAll
+   * @summary Queries a list of sentRandomval items.
+   * @request GET:/genievot/random/random/sentRandomval
+   */
+  querySentRandomvalAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.countTotal"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<RandomQueryAllSentRandomvalResponse, RpcStatus>({
+      path: `/genievot/random/random/sentRandomval`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QuerySentRandomval
+   * @summary Queries a sentRandomval by id.
+   * @request GET:/genievot/random/random/sentRandomval/{id}
+   */
+  querySentRandomval = (id: string, params: RequestParams = {}) =>
+    this.request<RandomQueryGetSentRandomvalResponse, RpcStatus>({
+      path: `/genievot/random/random/sentRandomval/${id}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryTimedoutRandomvalAll
+   * @summary Queries a list of timedoutRandomval items.
+   * @request GET:/genievot/random/random/timedoutRandomval
+   */
+  queryTimedoutRandomvalAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.countTotal"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<RandomQueryAllTimedoutRandomvalResponse, RpcStatus>({
+      path: `/genievot/random/random/timedoutRandomval`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryTimedoutRandomval
+   * @summary Queries a timedoutRandomval by id.
+   * @request GET:/genievot/random/random/timedoutRandomval/{id}
+   */
+  queryTimedoutRandomval = (id: string, params: RequestParams = {}) =>
+    this.request<RandomQueryGetTimedoutRandomvalResponse, RpcStatus>({
+      path: `/genievot/random/random/timedoutRandomval/${id}`,
       method: "GET",
       format: "json",
       ...params,

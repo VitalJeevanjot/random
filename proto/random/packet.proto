@@ -34,5 +34,6 @@ message ReqRandomvalPacketAck {
   string parsedvrv = 8;
   string finalvrv = 9;
   string floatvrv = 10;
+  string uniqIndex = 11;
 }
 // this line is used by starport scaffolding # ibc/packet/proto/message

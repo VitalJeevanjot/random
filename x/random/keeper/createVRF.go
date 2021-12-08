@@ -10,7 +10,6 @@ import (
 	"strconv"
 )
 
-
 func (k Keeper) CreateRandomNumber(ctx sdk.Context, msgCreator string, msg_multiplier string) (types.Randomval, types.Userval, error) {
 
 	userval, isFound := k.GetUserval(ctx, msgCreator)
@@ -43,9 +42,9 @@ func (k Keeper) CreateRandomNumber(ctx sdk.Context, msgCreator string, msg_multi
 		return err_newRandomVal, err_newUserVal, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Secret Key is not generated")
 	}
 
-	msgMultiplier, err := strconv.ParseUint(msg_multiplier, 10 ,64)
+	msgMultiplier, err := strconv.ParseUint(msg_multiplier, 10, 64)
 	if err != nil {
-		return err_newRandomVal, err_newUserVal,  sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Secret Key is not generated")
+		return err_newRandomVal, err_newUserVal, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Secret Key is not generated")
 	}
 
 	random_val_key := msgCreator + "," + strconv.FormatInt(user_key_count, 10)

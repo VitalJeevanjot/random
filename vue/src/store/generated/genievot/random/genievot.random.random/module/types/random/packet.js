@@ -190,6 +190,7 @@ const baseReqRandomvalPacketAck = {
     parsedvrv: "",
     finalvrv: "",
     floatvrv: "",
+    uniqIndex: "",
 };
 export const ReqRandomvalPacketAck = {
     encode(message, writer = Writer.create()) {
@@ -222,6 +223,9 @@ export const ReqRandomvalPacketAck = {
         }
         if (message.floatvrv !== "") {
             writer.uint32(82).string(message.floatvrv);
+        }
+        if (message.uniqIndex !== "") {
+            writer.uint32(90).string(message.uniqIndex);
         }
         return writer;
     },
@@ -261,6 +265,9 @@ export const ReqRandomvalPacketAck = {
                     break;
                 case 10:
                     message.floatvrv = reader.string();
+                    break;
+                case 11:
+                    message.uniqIndex = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -331,6 +338,12 @@ export const ReqRandomvalPacketAck = {
         else {
             message.floatvrv = "";
         }
+        if (object.uniqIndex !== undefined && object.uniqIndex !== null) {
+            message.uniqIndex = String(object.uniqIndex);
+        }
+        else {
+            message.uniqIndex = "";
+        }
         return message;
     },
     toJSON(message) {
@@ -345,6 +358,7 @@ export const ReqRandomvalPacketAck = {
         message.parsedvrv !== undefined && (obj.parsedvrv = message.parsedvrv);
         message.finalvrv !== undefined && (obj.finalvrv = message.finalvrv);
         message.floatvrv !== undefined && (obj.floatvrv = message.floatvrv);
+        message.uniqIndex !== undefined && (obj.uniqIndex = message.uniqIndex);
         return obj;
     },
     fromPartial(object) {
@@ -408,6 +422,12 @@ export const ReqRandomvalPacketAck = {
         }
         else {
             message.floatvrv = "";
+        }
+        if (object.uniqIndex !== undefined && object.uniqIndex !== null) {
+            message.uniqIndex = object.uniqIndex;
+        }
+        else {
+            message.uniqIndex = "";
         }
         return message;
     },
