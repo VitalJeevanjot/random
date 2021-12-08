@@ -210,7 +210,8 @@ type App struct {
 	ScopedIBCKeeper      capabilitykeeper.ScopedKeeper
 	ScopedTransferKeeper capabilitykeeper.ScopedKeeper
 
-	RandomKeeper randommodulekeeper.Keeper
+	RandomKeeper       randommodulekeeper.Keeper
+	ScopedRandomKeeper capabilitykeeper.ScopedKeeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// the module manager
@@ -343,10 +344,15 @@ func New(
 		&stakingKeeper, govRouter,
 	)
 
+	scopedRandomKeeper := app.CapabilityKeeper.ScopeToModule(randommoduletypes.ModuleName)
+	app.ScopedRandomKeeper = scopedRandomKeeper
 	app.RandomKeeper = *randommodulekeeper.NewKeeper(
 		appCodec,
 		keys[randommoduletypes.StoreKey],
 		keys[randommoduletypes.MemStoreKey],
+		app.IBCKeeper.ChannelKeeper,
+		&app.IBCKeeper.PortKeeper,
+		scopedRandomKeeper,
 	)
 	randomModule := randommodule.NewAppModule(appCodec, app.RandomKeeper)
 
@@ -355,6 +361,7 @@ func New(
 	// Create static IBC router, add transfer route, then set and seal it
 	ibcRouter := ibcporttypes.NewRouter()
 	ibcRouter.AddRoute(ibctransfertypes.ModuleName, transferModule)
+	ibcRouter.AddRoute(randommoduletypes.ModuleName, randomModule)
 	// this line is used by starport scaffolding # ibc/app/router
 	app.IBCKeeper.SetRouter(ibcRouter)
 

@@ -25,8 +25,13 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 // GenesisState defines the random module's genesis state.
 type GenesisState struct {
-	RandomvalList []Randomval `protobuf:"bytes,1,rep,name=randomvalList,proto3" json:"randomvalList"`
-	UservalList   []Userval   `protobuf:"bytes,2,rep,name=uservalList,proto3" json:"uservalList"`
+	RandomvalList          []Randomval         `protobuf:"bytes,1,rep,name=randomvalList,proto3" json:"randomvalList"`
+	UservalList            []Userval           `protobuf:"bytes,2,rep,name=uservalList,proto3" json:"uservalList"`
+	PortId                 string              `protobuf:"bytes,3,opt,name=port_id,json=portId,proto3" json:"port_id,omitempty"`
+	SentRandomvalList      []SentRandomval     `protobuf:"bytes,4,rep,name=sentRandomvalList,proto3" json:"sentRandomvalList"`
+	SentRandomvalCount     uint64              `protobuf:"varint,5,opt,name=sentRandomvalCount,proto3" json:"sentRandomvalCount,omitempty"`
+	TimedoutRandomvalList  []TimedoutRandomval `protobuf:"bytes,6,rep,name=timedoutRandomvalList,proto3" json:"timedoutRandomvalList"`
+	TimedoutRandomvalCount uint64              `protobuf:"varint,7,opt,name=timedoutRandomvalCount,proto3" json:"timedoutRandomvalCount,omitempty"`
 }
 
 func (m *GenesisState) Reset()         { *m = GenesisState{} }
@@ -76,6 +81,41 @@ func (m *GenesisState) GetUservalList() []Userval {
 	return nil
 }
 
+func (m *GenesisState) GetPortId() string {
+	if m != nil {
+		return m.PortId
+	}
+	return ""
+}
+
+func (m *GenesisState) GetSentRandomvalList() []SentRandomval {
+	if m != nil {
+		return m.SentRandomvalList
+	}
+	return nil
+}
+
+func (m *GenesisState) GetSentRandomvalCount() uint64 {
+	if m != nil {
+		return m.SentRandomvalCount
+	}
+	return 0
+}
+
+func (m *GenesisState) GetTimedoutRandomvalList() []TimedoutRandomval {
+	if m != nil {
+		return m.TimedoutRandomvalList
+	}
+	return nil
+}
+
+func (m *GenesisState) GetTimedoutRandomvalCount() uint64 {
+	if m != nil {
+		return m.TimedoutRandomvalCount
+	}
+	return 0
+}
+
 func init() {
 	proto.RegisterType((*GenesisState)(nil), "genievot.random.random.GenesisState")
 }
@@ -83,21 +123,29 @@ func init() {
 func init() { proto.RegisterFile("random/genesis.proto", fileDescriptor_55381a259c753e1a) }
 
 var fileDescriptor_55381a259c753e1a = []byte{
-	// 219 bytes of a gzipped FileDescriptorProto
+	// 346 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x29, 0x4a, 0xcc, 0x4b,
 	0xc9, 0xcf, 0xd5, 0x4f, 0x4f, 0xcd, 0x4b, 0x2d, 0xce, 0x2c, 0xd6, 0x2b, 0x28, 0xca, 0x2f, 0xc9,
 	0x17, 0x12, 0x4b, 0x4f, 0xcd, 0xcb, 0x4c, 0x2d, 0xcb, 0x2f, 0xd1, 0x83, 0x48, 0x43, 0x29, 0x29,
 	0x31, 0xa8, 0x6a, 0x08, 0x55, 0x96, 0x98, 0x03, 0x51, 0x2f, 0x05, 0x33, 0xa5, 0xb4, 0x38, 0xb5,
-	0x08, 0x49, 0x34, 0x3d, 0x3f, 0x3d, 0x1f, 0xcc, 0xd4, 0x07, 0xb1, 0x20, 0xa2, 0x4a, 0xcb, 0x18,
-	0xb9, 0x78, 0xdc, 0x21, 0xb6, 0x05, 0x97, 0x24, 0x96, 0xa4, 0x0a, 0xf9, 0x72, 0xf1, 0xc2, 0xcd,
-	0xf3, 0xc9, 0x2c, 0x2e, 0x91, 0x60, 0x54, 0x60, 0xd6, 0xe0, 0x36, 0x52, 0xd4, 0xc3, 0xee, 0x08,
-	0xbd, 0x20, 0x98, 0x62, 0x27, 0x96, 0x13, 0xf7, 0xe4, 0x19, 0x82, 0x50, 0x75, 0x0b, 0xb9, 0x73,
-	0x71, 0x43, 0x9d, 0x01, 0x36, 0x8c, 0x09, 0x6c, 0x98, 0x3c, 0x2e, 0xc3, 0x42, 0x21, 0x4a, 0xa1,
-	0x46, 0x21, 0xeb, 0x74, 0x72, 0x3e, 0xf1, 0x48, 0x8e, 0xf1, 0xc2, 0x23, 0x39, 0xc6, 0x07, 0x8f,
-	0xe4, 0x18, 0x27, 0x3c, 0x96, 0x63, 0xb8, 0xf0, 0x58, 0x8e, 0xe1, 0xc6, 0x63, 0x39, 0x86, 0x28,
-	0xcd, 0xf4, 0xcc, 0x92, 0x8c, 0xd2, 0x24, 0xbd, 0x64, 0x48, 0xc0, 0x81, 0xcd, 0x85, 0x86, 0x89,
-	0x7e, 0x05, 0x8c, 0x51, 0x52, 0x59, 0x90, 0x5a, 0x9c, 0xc4, 0x06, 0xf6, 0xb4, 0x31, 0x20, 0x00,
-	0x00, 0xff, 0xff, 0xc3, 0xe3, 0xec, 0xa0, 0x68, 0x01, 0x00, 0x00,
+	0x08, 0x21, 0x2a, 0x0d, 0x15, 0x2d, 0x4e, 0xcd, 0x2b, 0x89, 0x47, 0xd7, 0x22, 0x0f, 0x95, 0x2c,
+	0xc9, 0xcc, 0x4d, 0x4d, 0xc9, 0x2f, 0xc5, 0x54, 0x20, 0x92, 0x9e, 0x9f, 0x9e, 0x0f, 0x66, 0xea,
+	0x83, 0x58, 0x10, 0x51, 0xa5, 0x97, 0xcc, 0x5c, 0x3c, 0xee, 0x10, 0xb7, 0x06, 0x97, 0x24, 0x96,
+	0xa4, 0x0a, 0xf9, 0x72, 0xf1, 0xc2, 0x75, 0xfa, 0x64, 0x16, 0x97, 0x48, 0x30, 0x2a, 0x30, 0x6b,
+	0x70, 0x1b, 0x29, 0xea, 0x61, 0xf7, 0x82, 0x5e, 0x10, 0x4c, 0xb1, 0x13, 0xcb, 0x89, 0x7b, 0xf2,
+	0x0c, 0x41, 0xa8, 0xba, 0x85, 0xdc, 0xb9, 0xb8, 0xa1, 0x9e, 0x00, 0x1b, 0xc6, 0x04, 0x36, 0x4c,
+	0x1e, 0x97, 0x61, 0xa1, 0x10, 0xa5, 0x50, 0xa3, 0x90, 0x75, 0x0a, 0x89, 0x73, 0xb1, 0x17, 0xe4,
+	0x17, 0x95, 0xc4, 0x67, 0xa6, 0x48, 0x30, 0x2b, 0x30, 0x6a, 0x70, 0x06, 0xb1, 0x81, 0xb8, 0x9e,
+	0x29, 0x42, 0x91, 0x5c, 0x82, 0xa0, 0x00, 0x09, 0x42, 0x71, 0x34, 0x0b, 0xd8, 0x1e, 0x55, 0x5c,
+	0xf6, 0x04, 0x23, 0x6b, 0x80, 0xda, 0x86, 0x69, 0x8a, 0x90, 0x1e, 0x97, 0x10, 0x8a, 0xa0, 0x73,
+	0x7e, 0x69, 0x5e, 0x89, 0x04, 0xab, 0x02, 0xa3, 0x06, 0x4b, 0x10, 0x16, 0x19, 0xa1, 0x54, 0x2e,
+	0x51, 0x58, 0xf0, 0xa3, 0x3a, 0x87, 0x0d, 0xec, 0x1c, 0x4d, 0x5c, 0xce, 0x09, 0x41, 0xd7, 0x04,
+	0x75, 0x12, 0x76, 0xd3, 0x84, 0xcc, 0xb8, 0xc4, 0x30, 0x24, 0x20, 0x4e, 0x63, 0x07, 0x3b, 0x0d,
+	0x87, 0xac, 0x93, 0xf3, 0x89, 0x47, 0x72, 0x8c, 0x17, 0x1e, 0xc9, 0x31, 0x3e, 0x78, 0x24, 0xc7,
+	0x38, 0xe1, 0xb1, 0x1c, 0xc3, 0x85, 0xc7, 0x72, 0x0c, 0x37, 0x1e, 0xcb, 0x31, 0x44, 0x69, 0xa6,
+	0x67, 0x96, 0x64, 0x94, 0x26, 0xe9, 0x25, 0x43, 0x52, 0x2e, 0xd8, 0x8d, 0xd0, 0x44, 0xa9, 0x5f,
+	0x01, 0x63, 0x94, 0x54, 0x16, 0xa4, 0x16, 0x27, 0xb1, 0x81, 0xd3, 0x8d, 0x31, 0x20, 0x00, 0x00,
+	0xff, 0xff, 0xe6, 0x8c, 0x93, 0x28, 0xe9, 0x02, 0x00, 0x00,
 }
 
 func (m *GenesisState) Marshal() (dAtA []byte, err error) {
@@ -120,6 +168,51 @@ func (m *GenesisState) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	if m.TimedoutRandomvalCount != 0 {
+		i = encodeVarintGenesis(dAtA, i, uint64(m.TimedoutRandomvalCount))
+		i--
+		dAtA[i] = 0x38
+	}
+	if len(m.TimedoutRandomvalList) > 0 {
+		for iNdEx := len(m.TimedoutRandomvalList) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.TimedoutRandomvalList[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintGenesis(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x32
+		}
+	}
+	if m.SentRandomvalCount != 0 {
+		i = encodeVarintGenesis(dAtA, i, uint64(m.SentRandomvalCount))
+		i--
+		dAtA[i] = 0x28
+	}
+	if len(m.SentRandomvalList) > 0 {
+		for iNdEx := len(m.SentRandomvalList) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.SentRandomvalList[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintGenesis(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x22
+		}
+	}
+	if len(m.PortId) > 0 {
+		i -= len(m.PortId)
+		copy(dAtA[i:], m.PortId)
+		i = encodeVarintGenesis(dAtA, i, uint64(len(m.PortId)))
+		i--
+		dAtA[i] = 0x1a
+	}
 	if len(m.UservalList) > 0 {
 		for iNdEx := len(m.UservalList) - 1; iNdEx >= 0; iNdEx-- {
 			{
@@ -179,6 +272,28 @@ func (m *GenesisState) Size() (n int) {
 			l = e.Size()
 			n += 1 + l + sovGenesis(uint64(l))
 		}
+	}
+	l = len(m.PortId)
+	if l > 0 {
+		n += 1 + l + sovGenesis(uint64(l))
+	}
+	if len(m.SentRandomvalList) > 0 {
+		for _, e := range m.SentRandomvalList {
+			l = e.Size()
+			n += 1 + l + sovGenesis(uint64(l))
+		}
+	}
+	if m.SentRandomvalCount != 0 {
+		n += 1 + sovGenesis(uint64(m.SentRandomvalCount))
+	}
+	if len(m.TimedoutRandomvalList) > 0 {
+		for _, e := range m.TimedoutRandomvalList {
+			l = e.Size()
+			n += 1 + l + sovGenesis(uint64(l))
+		}
+	}
+	if m.TimedoutRandomvalCount != 0 {
+		n += 1 + sovGenesis(uint64(m.TimedoutRandomvalCount))
 	}
 	return n
 }
@@ -286,6 +401,144 @@ func (m *GenesisState) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PortId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.PortId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SentRandomvalList", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SentRandomvalList = append(m.SentRandomvalList, SentRandomval{})
+			if err := m.SentRandomvalList[len(m.SentRandomvalList)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 5:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SentRandomvalCount", wireType)
+			}
+			m.SentRandomvalCount = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.SentRandomvalCount |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TimedoutRandomvalList", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TimedoutRandomvalList = append(m.TimedoutRandomvalList, TimedoutRandomval{})
+			if err := m.TimedoutRandomvalList[len(m.TimedoutRandomvalList)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 7:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TimedoutRandomvalCount", wireType)
+			}
+			m.TimedoutRandomvalCount = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.TimedoutRandomvalCount |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
 		default:
 			iNdEx = preIndex
 			skippy, err := skipGenesis(dAtA[iNdEx:])

@@ -2,6 +2,8 @@ import { Reader, Writer } from "protobufjs/minimal";
 import { Randomval } from "../random/randomval";
 import { PageRequest, PageResponse } from "../cosmos/base/query/v1beta1/pagination";
 import { Userval } from "../random/userval";
+import { SentRandomval } from "../random/sent_randomval";
+import { TimedoutRandomval } from "../random/timedout_randomval";
 export declare const protobufPackage = "genievot.random.random";
 export interface QueryGetRandomvalRequest {
     index: string;
@@ -37,6 +39,32 @@ export interface QueryVerifyValuesRequest {
 }
 export interface QueryVerifyValuesResponse {
     verified: string;
+}
+export interface QueryGetSentRandomvalRequest {
+    id: number;
+}
+export interface QueryGetSentRandomvalResponse {
+    SentRandomval: SentRandomval | undefined;
+}
+export interface QueryAllSentRandomvalRequest {
+    pagination: PageRequest | undefined;
+}
+export interface QueryAllSentRandomvalResponse {
+    SentRandomval: SentRandomval[];
+    pagination: PageResponse | undefined;
+}
+export interface QueryGetTimedoutRandomvalRequest {
+    id: number;
+}
+export interface QueryGetTimedoutRandomvalResponse {
+    TimedoutRandomval: TimedoutRandomval | undefined;
+}
+export interface QueryAllTimedoutRandomvalRequest {
+    pagination: PageRequest | undefined;
+}
+export interface QueryAllTimedoutRandomvalResponse {
+    TimedoutRandomval: TimedoutRandomval[];
+    pagination: PageResponse | undefined;
 }
 export declare const QueryGetRandomvalRequest: {
     encode(message: QueryGetRandomvalRequest, writer?: Writer): Writer;
@@ -108,6 +136,62 @@ export declare const QueryVerifyValuesResponse: {
     toJSON(message: QueryVerifyValuesResponse): unknown;
     fromPartial(object: DeepPartial<QueryVerifyValuesResponse>): QueryVerifyValuesResponse;
 };
+export declare const QueryGetSentRandomvalRequest: {
+    encode(message: QueryGetSentRandomvalRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetSentRandomvalRequest;
+    fromJSON(object: any): QueryGetSentRandomvalRequest;
+    toJSON(message: QueryGetSentRandomvalRequest): unknown;
+    fromPartial(object: DeepPartial<QueryGetSentRandomvalRequest>): QueryGetSentRandomvalRequest;
+};
+export declare const QueryGetSentRandomvalResponse: {
+    encode(message: QueryGetSentRandomvalResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetSentRandomvalResponse;
+    fromJSON(object: any): QueryGetSentRandomvalResponse;
+    toJSON(message: QueryGetSentRandomvalResponse): unknown;
+    fromPartial(object: DeepPartial<QueryGetSentRandomvalResponse>): QueryGetSentRandomvalResponse;
+};
+export declare const QueryAllSentRandomvalRequest: {
+    encode(message: QueryAllSentRandomvalRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllSentRandomvalRequest;
+    fromJSON(object: any): QueryAllSentRandomvalRequest;
+    toJSON(message: QueryAllSentRandomvalRequest): unknown;
+    fromPartial(object: DeepPartial<QueryAllSentRandomvalRequest>): QueryAllSentRandomvalRequest;
+};
+export declare const QueryAllSentRandomvalResponse: {
+    encode(message: QueryAllSentRandomvalResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllSentRandomvalResponse;
+    fromJSON(object: any): QueryAllSentRandomvalResponse;
+    toJSON(message: QueryAllSentRandomvalResponse): unknown;
+    fromPartial(object: DeepPartial<QueryAllSentRandomvalResponse>): QueryAllSentRandomvalResponse;
+};
+export declare const QueryGetTimedoutRandomvalRequest: {
+    encode(message: QueryGetTimedoutRandomvalRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetTimedoutRandomvalRequest;
+    fromJSON(object: any): QueryGetTimedoutRandomvalRequest;
+    toJSON(message: QueryGetTimedoutRandomvalRequest): unknown;
+    fromPartial(object: DeepPartial<QueryGetTimedoutRandomvalRequest>): QueryGetTimedoutRandomvalRequest;
+};
+export declare const QueryGetTimedoutRandomvalResponse: {
+    encode(message: QueryGetTimedoutRandomvalResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetTimedoutRandomvalResponse;
+    fromJSON(object: any): QueryGetTimedoutRandomvalResponse;
+    toJSON(message: QueryGetTimedoutRandomvalResponse): unknown;
+    fromPartial(object: DeepPartial<QueryGetTimedoutRandomvalResponse>): QueryGetTimedoutRandomvalResponse;
+};
+export declare const QueryAllTimedoutRandomvalRequest: {
+    encode(message: QueryAllTimedoutRandomvalRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllTimedoutRandomvalRequest;
+    fromJSON(object: any): QueryAllTimedoutRandomvalRequest;
+    toJSON(message: QueryAllTimedoutRandomvalRequest): unknown;
+    fromPartial(object: DeepPartial<QueryAllTimedoutRandomvalRequest>): QueryAllTimedoutRandomvalRequest;
+};
+export declare const QueryAllTimedoutRandomvalResponse: {
+    encode(message: QueryAllTimedoutRandomvalResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllTimedoutRandomvalResponse;
+    fromJSON(object: any): QueryAllTimedoutRandomvalResponse;
+    toJSON(message: QueryAllTimedoutRandomvalResponse): unknown;
+    fromPartial(object: DeepPartial<QueryAllTimedoutRandomvalResponse>): QueryAllTimedoutRandomvalResponse;
+};
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Queries a randomval by index. */
@@ -120,6 +204,14 @@ export interface Query {
     UservalAll(request: QueryAllUservalRequest): Promise<QueryAllUservalResponse>;
     /** Queries a list of verifyValues items. */
     VerifyValues(request: QueryVerifyValuesRequest): Promise<QueryVerifyValuesResponse>;
+    /** Queries a sentRandomval by id. */
+    SentRandomval(request: QueryGetSentRandomvalRequest): Promise<QueryGetSentRandomvalResponse>;
+    /** Queries a list of sentRandomval items. */
+    SentRandomvalAll(request: QueryAllSentRandomvalRequest): Promise<QueryAllSentRandomvalResponse>;
+    /** Queries a timedoutRandomval by id. */
+    TimedoutRandomval(request: QueryGetTimedoutRandomvalRequest): Promise<QueryGetTimedoutRandomvalResponse>;
+    /** Queries a list of timedoutRandomval items. */
+    TimedoutRandomvalAll(request: QueryAllTimedoutRandomvalRequest): Promise<QueryAllTimedoutRandomvalResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -129,6 +221,10 @@ export declare class QueryClientImpl implements Query {
     Userval(request: QueryGetUservalRequest): Promise<QueryGetUservalResponse>;
     UservalAll(request: QueryAllUservalRequest): Promise<QueryAllUservalResponse>;
     VerifyValues(request: QueryVerifyValuesRequest): Promise<QueryVerifyValuesResponse>;
+    SentRandomval(request: QueryGetSentRandomvalRequest): Promise<QueryGetSentRandomvalResponse>;
+    SentRandomvalAll(request: QueryAllSentRandomvalRequest): Promise<QueryAllSentRandomvalResponse>;
+    TimedoutRandomval(request: QueryGetTimedoutRandomvalRequest): Promise<QueryGetTimedoutRandomvalResponse>;
+    TimedoutRandomvalAll(request: QueryAllTimedoutRandomvalRequest): Promise<QueryAllTimedoutRandomvalResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

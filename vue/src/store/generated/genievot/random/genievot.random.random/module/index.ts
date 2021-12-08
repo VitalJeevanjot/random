@@ -4,11 +4,25 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
+import { MsgCreateTimedoutRandomval } from "./types/random/tx";
 import { MsgCreateRandom } from "./types/random/tx";
+import { MsgDeleteSentRandomval } from "./types/random/tx";
+import { MsgDeleteTimedoutRandomval } from "./types/random/tx";
+import { MsgUpdateSentRandomval } from "./types/random/tx";
+import { MsgUpdateTimedoutRandomval } from "./types/random/tx";
+import { MsgSendReqRandomval } from "./types/random/tx";
+import { MsgCreateSentRandomval } from "./types/random/tx";
 
 
 const types = [
+  ["/genievot.random.random.MsgCreateTimedoutRandomval", MsgCreateTimedoutRandomval],
   ["/genievot.random.random.MsgCreateRandom", MsgCreateRandom],
+  ["/genievot.random.random.MsgDeleteSentRandomval", MsgDeleteSentRandomval],
+  ["/genievot.random.random.MsgDeleteTimedoutRandomval", MsgDeleteTimedoutRandomval],
+  ["/genievot.random.random.MsgUpdateSentRandomval", MsgUpdateSentRandomval],
+  ["/genievot.random.random.MsgUpdateTimedoutRandomval", MsgUpdateTimedoutRandomval],
+  ["/genievot.random.random.MsgSendReqRandomval", MsgSendReqRandomval],
+  ["/genievot.random.random.MsgCreateSentRandomval", MsgCreateSentRandomval],
   
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -37,7 +51,14 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
+    msgCreateTimedoutRandomval: (data: MsgCreateTimedoutRandomval): EncodeObject => ({ typeUrl: "/genievot.random.random.MsgCreateTimedoutRandomval", value: data }),
     msgCreateRandom: (data: MsgCreateRandom): EncodeObject => ({ typeUrl: "/genievot.random.random.MsgCreateRandom", value: data }),
+    msgDeleteSentRandomval: (data: MsgDeleteSentRandomval): EncodeObject => ({ typeUrl: "/genievot.random.random.MsgDeleteSentRandomval", value: data }),
+    msgDeleteTimedoutRandomval: (data: MsgDeleteTimedoutRandomval): EncodeObject => ({ typeUrl: "/genievot.random.random.MsgDeleteTimedoutRandomval", value: data }),
+    msgUpdateSentRandomval: (data: MsgUpdateSentRandomval): EncodeObject => ({ typeUrl: "/genievot.random.random.MsgUpdateSentRandomval", value: data }),
+    msgUpdateTimedoutRandomval: (data: MsgUpdateTimedoutRandomval): EncodeObject => ({ typeUrl: "/genievot.random.random.MsgUpdateTimedoutRandomval", value: data }),
+    msgSendReqRandomval: (data: MsgSendReqRandomval): EncodeObject => ({ typeUrl: "/genievot.random.random.MsgSendReqRandomval", value: data }),
+    msgCreateSentRandomval: (data: MsgCreateSentRandomval): EncodeObject => ({ typeUrl: "/genievot.random.random.MsgCreateSentRandomval", value: data }),
     
   };
 };

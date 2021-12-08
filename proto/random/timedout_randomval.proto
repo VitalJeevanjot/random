@@ -1,0 +1,12 @@
+syntax = "proto3";
+package genievot.random.random;
+
+option go_package = "github.com/genievot/random/x/random/types";
+
+import "gogoproto/gogo.proto";
+
+
+message TimedoutRandomval {
+  uint64 id = 1;
+  string creator = 2;
+}

@@ -37,6 +37,24 @@ func TestGenesisState_Validate(t *testing.T) {
 						Index: "1",
 					},
 				},
+				SentRandomvalList: []types.SentRandomval{
+					{
+						Id: 0,
+					},
+					{
+						Id: 1,
+					},
+				},
+				SentRandomvalCount: 2,
+				TimedoutRandomvalList: []types.TimedoutRandomval{
+					{
+						Id: 0,
+					},
+					{
+						Id: 1,
+					},
+				},
+				TimedoutRandomvalCount: 2,
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
@@ -66,6 +84,58 @@ func TestGenesisState_Validate(t *testing.T) {
 						Index: "0",
 					},
 				},
+			},
+			valid: false,
+		},
+		{
+			desc: "duplicated sentRandomval",
+			genState: &types.GenesisState{
+				SentRandomvalList: []types.SentRandomval{
+					{
+						Id: 0,
+					},
+					{
+						Id: 0,
+					},
+				},
+			},
+			valid: false,
+		},
+		{
+			desc: "invalid sentRandomval count",
+			genState: &types.GenesisState{
+				SentRandomvalList: []types.SentRandomval{
+					{
+						Id: 1,
+					},
+				},
+				SentRandomvalCount: 0,
+			},
+			valid: false,
+		},
+		{
+			desc: "duplicated timedoutRandomval",
+			genState: &types.GenesisState{
+				TimedoutRandomvalList: []types.TimedoutRandomval{
+					{
+						Id: 0,
+					},
+					{
+						Id: 0,
+					},
+				},
+			},
+			valid: false,
+		},
+		{
+			desc: "invalid timedoutRandomval count",
+			genState: &types.GenesisState{
+				TimedoutRandomvalList: []types.TimedoutRandomval{
+					{
+						Id: 1,
+					},
+				},
+				TimedoutRandomvalCount: 0,
 			},
 			valid: false,
 		},

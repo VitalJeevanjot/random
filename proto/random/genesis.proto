@@ -3,6 +3,8 @@ package genievot.random.random;
 
 import "random/randomval.proto";
 import "random/userval.proto";
+import "random/sent_randomval.proto";
+import "random/timedout_randomval.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 import "gogoproto/gogo.proto";
 
@@ -12,5 +14,11 @@ option go_package = "github.com/genievot/random/x/random/types";
 message GenesisState {
     repeated Randomval randomvalList = 1 [(gogoproto.nullable) = false];
   repeated Userval uservalList = 2 [(gogoproto.nullable) = false];
+  string port_id = 3;
+  repeated SentRandomval sentRandomvalList = 4 [(gogoproto.nullable) = false];
+  uint64 sentRandomvalCount = 5;
+  repeated TimedoutRandomval timedoutRandomvalList = 6 [(gogoproto.nullable) = false];
+  uint64 timedoutRandomvalCount = 7;
   // this line is used by starport scaffolding # genesis/proto/state
 }
+

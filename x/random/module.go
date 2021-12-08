@@ -16,6 +16,7 @@ import (
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
+	porttypes "github.com/cosmos/ibc-go/modules/core/05-port/types"
 	"github.com/genievot/random/x/random/client/cli"
 	"github.com/genievot/random/x/random/keeper"
 	"github.com/genievot/random/x/random/types"
@@ -24,6 +25,7 @@ import (
 var (
 	_ module.AppModule      = AppModule{}
 	_ module.AppModuleBasic = AppModuleBasic{}
+	_ porttypes.IBCModule   = AppModule{}
 )
 
 // ----------------------------------------------------------------------------

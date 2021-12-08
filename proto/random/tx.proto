@@ -1,6 +1,8 @@
 syntax = "proto3";
 package genievot.random.random;
 
+import "random/sent_randomval.proto";
+import "random/timedout_randomval.proto";
 // this line is used by starport scaffolding # proto/tx/import
 
 option go_package = "github.com/genievot/random/x/random/types";
@@ -8,17 +10,85 @@ option go_package = "github.com/genievot/random/x/random/types";
 // Msg defines the Msg service.
 service Msg {
       rpc CreateRandom(MsgCreateRandom) returns (MsgCreateRandomResponse);
+  rpc SendReqRandomval(MsgSendReqRandomval) returns (MsgSendReqRandomvalResponse);
+rpc CreateSentRandomval(MsgCreateSentRandomval) returns (MsgCreateSentRandomvalResponse);
+  rpc UpdateSentRandomval(MsgUpdateSentRandomval) returns (MsgUpdateSentRandomvalResponse);
+  rpc DeleteSentRandomval(MsgDeleteSentRandomval) returns (MsgDeleteSentRandomvalResponse);
+rpc CreateTimedoutRandomval(MsgCreateTimedoutRandomval) returns (MsgCreateTimedoutRandomvalResponse);
+  rpc UpdateTimedoutRandomval(MsgUpdateTimedoutRandomval) returns (MsgUpdateTimedoutRandomvalResponse);
+  rpc DeleteTimedoutRandomval(MsgDeleteTimedoutRandomval) returns (MsgDeleteTimedoutRandomvalResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
 message MsgCreateRandom {
   string creator = 1;
   uint64 multiplier = 2;
-  // int32 count = 3; // -1 will be last (recently created) and 0 is first
 }
 
 message MsgCreateRandomResponse {
+  string id = 1;
+}
+
+message MsgSendReqRandomval {
+  string creator = 1;
+  string port = 2;
+  string channelID = 3;
+  uint64 timeoutTimestamp = 4;
+  string multiplier = 5;
+}
+
+message MsgSendReqRandomvalResponse {
+}
+message MsgCreateSentRandomval {
+  string creator = 1;
+  string userid = 2;
+  string vrv = 3;
+}
+
+message MsgCreateSentRandomvalResponse {
   uint64 id = 1;
 }
+
+message MsgUpdateSentRandomval {
+  string creator = 1;
+  uint64 id = 2;
+  string userid = 3;
+  string vrv = 4;
+}
+
+message MsgUpdateSentRandomvalResponse {}
+
+message MsgDeleteSentRandomval {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgDeleteSentRandomvalResponse {}
+
+message MsgCreateTimedoutRandomval {
+  string creator = 1;
+  string userid = 2;
+  string vrv = 3;
+}
+
+message MsgCreateTimedoutRandomvalResponse {
+  uint64 id = 1;
+}
+
+message MsgUpdateTimedoutRandomval {
+  string creator = 1;
+  uint64 id = 2;
+  string userid = 3;
+  string vrv = 4;
+}
+
+message MsgUpdateTimedoutRandomvalResponse {}
+
+message MsgDeleteTimedoutRandomval {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgDeleteTimedoutRandomvalResponse {}
 
 // this line is used by starport scaffolding # proto/tx/message
