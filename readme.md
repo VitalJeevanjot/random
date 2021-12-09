@@ -47,6 +47,9 @@ curl https://get.starport.network/genievot/random@latest! | sudo bash
 ```
 `genievot/random` should match the `username` and `repo_name` of the Github repository to which the source code was pushed. Learn more about [the install process](https://github.com/allinbits/starport-installer).
 
+## To use see [The video](https://www.youtube.com/watch?v=gz1xD8-dqe0)
+
+
 ## Learn more
 
 - [Starport](https://github.com/tendermint/starport)
