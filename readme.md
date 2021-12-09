@@ -9,6 +9,13 @@ starport chain serve
 
 `serve` command installs dependencies, builds, initializes, and starts your blockchain in development.
 
+## To use:- 
+Check this [video](https://www.youtube.com/watch?v=gz1xD8-dqe0)
+Presentation Introduction https://docs.google.com/presentation/d/1mPnI8HJl6iECeXLXSF2vJuNSzN0aVEYVGmIkAqU3Udc/edit?usp=sharing
+
+Check for transactions and queries through above presentation link and explore the code as the ream me can update in future more better quick start
+
+
 ### Configure
 
 Your blockchain in development can be configured with `config.yml`. To learn more, see the [Starport docs](https://docs.starport.network).
@@ -46,8 +53,6 @@ To install the latest version of your blockchain node's binary, execute the foll
 curl https://get.starport.network/genievot/random@latest! | sudo bash
 ```
 `genievot/random` should match the `username` and `repo_name` of the Github repository to which the source code was pushed. Learn more about [the install process](https://github.com/allinbits/starport-installer).
-
-## To use see [The video](https://www.youtube.com/watch?v=gz1xD8-dqe0)
 
 
 ## Learn more
