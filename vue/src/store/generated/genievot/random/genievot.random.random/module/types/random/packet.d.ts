@@ -15,15 +15,7 @@ export interface ReqRandomvalPacketData {
 /** ReqRandomvalPacketAck defines a struct for the packet acknowledgment */
 export interface ReqRandomvalPacketAck {
     creator: string;
-    publicKey: string;
-    message: string;
-    vrv: string;
-    proof: string;
     finalvrvfl: string;
-    multiplier: string;
-    parsedvrv: string;
-    finalvrv: string;
-    floatvrv: string;
     uniqIndex: string;
 }
 export declare const RandomPacketData: {
