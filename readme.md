@@ -14,10 +14,8 @@ starport chain serve
 ## Commands
 
 ### Chain Commands
-- `randomd tx random create-random <multiplier> --from <wallet_name>`
+- `randomd tx random create-random <multiplier> --from alice`
 This _transaction_ command will use `multiplier` as the **max** number from **0** to create a random value then sign and broadcast it on the network.
-
-
 
 - `randomd q random list-randomval`
 This _query_ command will list all the map index with values created through `create-random` command (Lists all the random values + required data).
@@ -40,7 +38,44 @@ c9f cosmos1064p2u6xaw4d5exwpesf2jv3vd7cr7m7lgxzc8,3 71e759d11bc846f01c54fa1ecf1f
 d61cae688f7cfcc23964b8391392bed94778df2f3bf493022d3e244331019b1f4fef646148c1819c4f38e9dbc51fb07aa8060200e9a13b2dab7df1174 
 e09d7946722a4dbc85d5b19c02cb63883c12a496e9d1c3dd815b964bc8c175a271b`
 
+### IBC Commands (Chain Commands+)
 
+Configure the relayer when running for 2 local chains `earth` and `mars` (if you are following the tutorial from video [linked below])
+
+```
+starport relayer configure -a \
+--source-rpc "http://0.0.0.0:26657" \
+--source-faucet "http://0.0.0.0:4500" \
+--source-port "random" \
+--source-version "random-1" \
+--source-gasprice "0.0000025stake" \
+--source-prefix "cosmos" \
+--source-gaslimit 300000 \
+--target-rpc "http://0.0.0.0:26659" \
+--target-faucet "http://0.0.0.0:4501" \
+--target-port "random" \
+--target-version "random-1" \
+--target-gasprice "0.0000025stake" \
+--target-prefix "cosmos" \
+--target-gaslimit 300000
+```
+then
+`starport relayer connect`
+
+- `randomd tx random send-req-randomval random channel-0 5000 --from alice --chain-id earth --home ~/.earth`
+
+This _transaction_ command will prepare and send packet with mulitplier field from (if you are using default settings and following video) chain Earth to chain Mars
+
+- `randomd q random list-sent-randomval`
+
+This _query_ command will list all the values received by chain Earth (the chain that you sent packet with in this case).
+
+- `randomd q random list-timedout-randomval`
+
+This _query_ command will list all the timedout packet information.
+
+
+**To learn more about how to use or check randomval type's properties please check the video**
 To see the working of theis repo, please check this [video](https://www.youtube.com/watch?v=gz1xD8-dqe0)
 
 Also the presentation Introduction [here](https://docs.google.com/presentation/d/1mPnI8HJl6iECeXLXSF2vJuNSzN0aVEYVGmIkAqU3Udc/edit?usp=sharing)
